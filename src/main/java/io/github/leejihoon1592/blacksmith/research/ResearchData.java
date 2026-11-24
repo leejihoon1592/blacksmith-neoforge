@@ -4,16 +4,18 @@ import com.google.gson.*;
 import io.github.leejihoon1592.blacksmith.BlacksmithMod;
 import io.github.leejihoon1592.blacksmith.material.MetalIngotItem;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.server.packs.resources.*;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.minecraft.core.registries.BuiltInRegistries;
 import java.util.*;
 
-@Mod.EventBusSubscriber(modid = BlacksmithMod.MODID)
+@net.neoforged.fml.common.EventBusSubscriber(modid = BlacksmithMod.MODID)
 public final class ResearchData extends SimpleJsonResourceReloadListener {
     public record Material(String id, double point, double seconds) {}
     private static Map<String, Material> materials = Map.of();
@@ -31,7 +33,7 @@ public final class ResearchData extends SimpleJsonResourceReloadListener {
         JsonObject bases = config.getAsJsonObject("base_seconds");
         for (var entry : config.getAsJsonObject("specializations").entrySet()) {
             String id = entry.getKey();
-            var item = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("blacksmith", id + "_ingot"));
+            var item = BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("blacksmith", id + "_ingot"));
             if (!(item instanceof MetalIngotItem metal)) throw new JsonParseException("Unknown metal: " + id);
             double seconds = MaterialPhysics.meltingSeconds(metal.baseStats(), bases.get(entry.getValue().getAsString()).getAsDouble());
             if (seconds <= 0) throw new JsonParseException("Nonpositive melting time: " + id);
@@ -68,12 +70,12 @@ public final class ResearchData extends SimpleJsonResourceReloadListener {
     }
 
     public static List<ThermalExperiment.Component> sample(ItemStack stack) {
-        ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(stack.getItem());
         if (key == null || !key.getNamespace().equals("blacksmith")) return List.of();
         String name = key.getPath();
         if (!name.endsWith("_raw_fragment")) return List.of();
         String metal = name.substring(0, name.length() - "_raw_fragment".length());
-        String host = stack.hasTag() ? stack.getTag().getString("ResearchHost") : "";
+        String host = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("ResearchHost");
         if (host.isEmpty()) host = "stone";
         return samples.getOrDefault(metal + "/" + host, List.of());
     }
@@ -87,10 +89,13 @@ public final class ResearchData extends SimpleJsonResourceReloadListener {
         double actual = property.equals("point") ? definition.point() : definition.seconds();
         double tolerance = property.equals("point") ? closeTemperature : closeSeconds;
         double error = Math.abs(actual - guess);
-        var entries = book.getOrCreateTagElement(ENTRIES);
+        var data = book.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        var entries = data.getCompound(ENTRIES);
         var entry = entries.getCompound(material);
         entry.putDouble(property, guess);
         entry.putInt(property + "Grade", error < 0.0001 ? 2 : error <= tolerance ? 1 : 0);
         entries.put(material, entry);
+        data.put(ENTRIES, entries);
+        book.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
     }
 }

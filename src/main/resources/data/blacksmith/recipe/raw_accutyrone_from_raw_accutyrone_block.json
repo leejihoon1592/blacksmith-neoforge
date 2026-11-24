@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:raw_accutyrone_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:raw_accutyrone",
+    "count": 9
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:sprinal_nugget"
+    }
+  },
+  "result": {
+    "id": "blacksmith:sprinal_ingot",
+    "count": 1
+  }
+}

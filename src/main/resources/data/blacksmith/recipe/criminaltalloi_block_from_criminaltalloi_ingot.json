@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:criminaltalloi_ingot"
+    }
+  },
+  "result": {
+    "id": "blacksmith:criminaltalloi_block",
+    "count": 1
+  }
+}

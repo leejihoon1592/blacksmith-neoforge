@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_durathorn"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_durathorn_block",
+    "count": 1
+  }
+}

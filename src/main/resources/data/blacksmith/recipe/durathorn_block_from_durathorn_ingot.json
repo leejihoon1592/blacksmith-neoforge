@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:durathorn_ingot"
+    }
+  },
+  "result": {
+    "id": "blacksmith:durathorn_block",
+    "count": 1
+  }
+}

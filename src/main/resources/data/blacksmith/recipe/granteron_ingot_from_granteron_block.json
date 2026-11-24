@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:granteron_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:granteron_ingot",
+    "count": 9
+  }
+}

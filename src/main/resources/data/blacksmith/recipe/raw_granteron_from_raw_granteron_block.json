@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:raw_granteron_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:raw_granteron",
+    "count": 9
+  }
+}

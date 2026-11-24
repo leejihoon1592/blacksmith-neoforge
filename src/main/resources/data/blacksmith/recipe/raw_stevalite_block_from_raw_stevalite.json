@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_stevalite"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_stevalite_block",
+    "count": 1
+  }
+}

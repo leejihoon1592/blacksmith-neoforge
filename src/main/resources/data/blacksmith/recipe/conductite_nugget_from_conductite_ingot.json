@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:conductite_ingot"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:conductite_nugget",
+    "count": 9
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:liselborn_ingot"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:liselborn_nugget",
+    "count": 9
+  }
+}

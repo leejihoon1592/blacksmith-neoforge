@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:ginspa_ingot"
+    }
+  },
+  "result": {
+    "id": "blacksmith:ginspa_block",
+    "count": 1
+  }
+}

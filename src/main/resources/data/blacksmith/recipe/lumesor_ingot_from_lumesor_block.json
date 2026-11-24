@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:lumesor_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:lumesor_ingot",
+    "count": 9
+  }
+}

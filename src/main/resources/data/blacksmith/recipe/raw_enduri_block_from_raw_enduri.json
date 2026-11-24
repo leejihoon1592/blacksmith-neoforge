@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_enduri"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_enduri_block",
+    "count": 1
+  }
+}

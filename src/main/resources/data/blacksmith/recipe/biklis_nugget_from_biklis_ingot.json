@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:biklis_ingot"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:biklis_nugget",
+    "count": 9
+  }
+}

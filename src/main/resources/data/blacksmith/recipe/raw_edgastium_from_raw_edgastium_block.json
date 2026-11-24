@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:raw_edgastium_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:raw_edgastium",
+    "count": 9
+  }
+}

@@ -57,7 +57,7 @@ public final class MiningGuideScreen extends Screen {
 
     @Override
     public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
-        renderBackground(g);
+        renderBackground(g, mouseX, mouseY, partialTick);
         int x = left, y = top;
         g.fill(x-4,y-3,x+296,y+178,0xff50392f);
         g.fill(x,y,x+146,y+174,0xffeee1c3);

@@ -3,16 +3,18 @@ package io.github.leejihoon1592.blacksmith.research;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
-import net.minecraft.client.gui.screens.MenuScreens;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod.EventBusSubscriber(modid="blacksmith",bus=Mod.EventBusSubscriber.Bus.MOD,value=Dist.CLIENT)
+@net.neoforged.fml.common.EventBusSubscriber(modid="blacksmith",value=Dist.CLIENT)
 public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> {
     private boolean pumping;
     private int ticks,selected;
@@ -20,7 +22,7 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
     public ResearchScreen(ResearchMenu menu,Inventory inventory,Component title) {
         super(menu,inventory,title); imageWidth=340;imageHeight=menu.mode==2?170:232;
     }
-    @SubscribeEvent public static void setup(FMLClientSetupEvent event) { event.enqueueWork(()->MenuScreens.register(ResearchRegistry.MENU.get(),ResearchScreen::new)); }
+    @SubscribeEvent public static void setup(RegisterMenuScreensEvent event) { event.register(ResearchRegistry.MENU.get(), ResearchScreen::new); }
     private static Component tr(String key) { return Component.translatable("research.blacksmith."+key); }
     private void button(int x,int y,int width,Component text,Runnable action) {
         addRenderableWidget(new Button(leftPos+x,topPos+y,width,20,text,b->action.run(),supplier->supplier.get()) {
@@ -94,8 +96,8 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
                 String key=java.util.Set.of("stone","deepslate","netherrack","end_stone").contains(id)?"block.minecraft."+id:"item.blacksmith."+id+"_ingot";
                 text(g,Component.translatable(key),178,40);
                 text(g,tr("point"),150,65);text(g,tr("seconds_label"),150,104);
-                var root=menu.book().getTagElement("ResearchEntries");
-                if(root!=null) {var entry=root.getCompound(id);grade(g,entry,"point",20,122);grade(g,entry,"seconds",20,136);}
+                var root=menu.book().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getCompound("ResearchEntries");
+                if(!root.isEmpty()) {var entry=root.getCompound(id);grade(g,entry,"point",20,122);grade(g,entry,"seconds",20,136);}
             }
         }
     }
@@ -104,11 +106,11 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
         int grade=data.getInt(property+"Grade");
         g.drawString(font,Component.literal(""+data.getDouble(property)+(property.equals("point")?" °C ":" s ")).append(tr("grade."+grade)),x,y,grade==2?0xff21632a:grade==1?0xff876300:0xffb02525,false);
     }
-    @Override public void render(GuiGraphics g,int x,int y,float partial) {renderBackground(g);super.render(g,x,y,partial);renderTooltip(g,x,y);}
+    @Override public void render(GuiGraphics g,int x,int y,float partial) {super.render(g,x,y,partial);renderTooltip(g,x,y);}
     @Override protected void renderTooltip(GuiGraphics g,int x,int y) {
         if(hoveredSlot==null || !hoveredSlot.hasItem() || !menu.getCarried().isEmpty()) return;
         var stack=hoveredSlot.getItem();
-        var lines=stack.getTooltipLines(minecraft.player,net.minecraft.world.item.TooltipFlag.Default.NORMAL)
+        var lines=stack.getTooltipLines(net.minecraft.world.item.Item.TooltipContext.of(minecraft.level), minecraft.player,net.minecraft.world.item.TooltipFlag.Default.NORMAL)
             .stream().flatMap(c->font.split(c,Math.min(250,width-24)).stream()).toList();
         int w=lines.stream().mapToInt(font::width).max().orElse(0),h=lines.size()*12;
         int tx=Math.max(4,Math.min(x+10,width-w-8)),ty=Math.max(4,Math.min(y+10,height-h-8));

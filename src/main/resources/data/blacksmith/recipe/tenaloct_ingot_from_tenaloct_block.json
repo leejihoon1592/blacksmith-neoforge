@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:tenaloct_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:tenaloct_ingot",
+    "count": 9
+  }
+}

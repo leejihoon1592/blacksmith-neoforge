@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:enduri_nugget"
+    }
+  },
+  "result": {
+    "id": "blacksmith:enduri_ingot",
+    "count": 1
+  }
+}

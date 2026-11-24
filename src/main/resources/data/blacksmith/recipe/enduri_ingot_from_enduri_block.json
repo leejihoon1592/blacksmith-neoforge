@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:enduri_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:enduri_ingot",
+    "count": 9
+  }
+}

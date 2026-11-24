@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_conductite"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_conductite_block",
+    "count": 1
+  }
+}

@@ -11,7 +11,7 @@ public final class ObservationScreen extends Screen {
     private ObservationScreen(ItemStack paper) {super(Component.translatable("item.blacksmith.research_note"));this.paper=paper.copy();}
     public static void open(ItemStack paper) {Minecraft.getInstance().setScreen(new ObservationScreen(paper));}
     @Override public void render(GuiGraphics g,int mx,int my,float partial) {
-        renderBackground(g);
+        renderBackground(g, mx, my, partial);
         int x=width/2-140,y=height/2-70;
         g.fill(x-4,y-4,x+284,y+144,0xff443324);g.fill(x,y,x+280,y+140,0xffe5d7b4);
         g.drawString(font,title,x+12,y+12,0xff392d20,false);

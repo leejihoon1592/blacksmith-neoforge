@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_duracilium"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_duracilium_block",
+    "count": 1
+  }
+}

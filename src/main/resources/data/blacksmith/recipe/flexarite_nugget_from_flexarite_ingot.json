@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:flexarite_ingot"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:flexarite_nugget",
+    "count": 9
+  }
+}

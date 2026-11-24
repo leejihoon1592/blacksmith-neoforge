@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:raw_durathorn_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:raw_durathorn",
+    "count": 9
+  }
+}

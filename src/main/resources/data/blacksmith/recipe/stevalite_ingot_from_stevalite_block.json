@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:stevalite_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:stevalite_ingot",
+    "count": 9
+  }
+}

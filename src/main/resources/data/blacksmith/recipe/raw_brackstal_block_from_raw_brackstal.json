@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_brackstal"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_brackstal_block",
+    "count": 1
+  }
+}

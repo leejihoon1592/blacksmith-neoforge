@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:brackstal_ingot"
+    }
+  },
+  "result": {
+    "id": "blacksmith:brackstal_block",
+    "count": 1
+  }
+}

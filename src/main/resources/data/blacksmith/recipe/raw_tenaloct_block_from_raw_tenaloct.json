@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_tenaloct"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_tenaloct_block",
+    "count": 1
+  }
+}

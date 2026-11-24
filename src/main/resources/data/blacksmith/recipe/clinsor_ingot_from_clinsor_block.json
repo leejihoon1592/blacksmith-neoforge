@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:clinsor_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:clinsor_ingot",
+    "count": 9
+  }
+}

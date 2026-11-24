@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_biklis"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_biklis_block",
+    "count": 1
+  }
+}

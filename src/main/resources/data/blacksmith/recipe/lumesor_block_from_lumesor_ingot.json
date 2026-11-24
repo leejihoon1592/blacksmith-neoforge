@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:lumesor_ingot"
+    }
+  },
+  "result": {
+    "id": "blacksmith:lumesor_block",
+    "count": 1
+  }
+}

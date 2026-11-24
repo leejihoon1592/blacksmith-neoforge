@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:charvin_nugget"
+    }
+  },
+  "result": {
+    "id": "blacksmith:charvin_ingot",
+    "count": 1
+  }
+}

@@ -8,10 +8,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 final class MetalForms {
-    static List<RegistryObject<? extends Item>> register(String metal) {
+    static List<DeferredHolder<? extends Item, ? extends Item>> register(String metal) {
         return List.of(
                 item("raw_" + metal),
                 item(metal + "_nugget"),
@@ -25,12 +25,12 @@ final class MetalForms {
         );
     }
 
-    private static RegistryObject<Item> item(String id) {
+    private static DeferredHolder<Item, Item> item(String id) {
         return BlacksmithMod.ITEMS.register(id, () -> new Item(new Item.Properties()));
     }
 
-    private static RegistryObject<BlockItem> block(String id, Block template) {
-        var block = BlacksmithMod.BLOCKS.register(id, () -> new Block(BlockBehaviour.Properties.copy(template)));
+    private static DeferredHolder<Item, BlockItem> block(String id, Block template) {
+        var block = BlacksmithMod.BLOCKS.register(id, () -> new Block(BlockBehaviour.Properties.ofFullCopy(template)));
         return BlacksmithMod.ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 

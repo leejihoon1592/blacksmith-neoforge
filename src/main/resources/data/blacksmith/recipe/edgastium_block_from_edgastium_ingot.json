@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:edgastium_ingot"
+    }
+  },
+  "result": {
+    "id": "blacksmith:edgastium_block",
+    "count": 1
+  }
+}

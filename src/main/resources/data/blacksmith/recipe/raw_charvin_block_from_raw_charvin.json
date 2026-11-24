@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_charvin"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_charvin_block",
+    "count": 1
+  }
+}

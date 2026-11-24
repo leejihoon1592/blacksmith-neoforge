@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:sprinal_ingot"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:sprinal_nugget",
+    "count": 9
+  }
+}

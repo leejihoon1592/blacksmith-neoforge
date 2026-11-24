@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:criminaltalloi_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:criminaltalloi_ingot",
+    "count": 9
+  }
+}

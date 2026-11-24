@@ -10,7 +10,9 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.crafting.RecipeType;
 import java.util.*;
 
 public final class ResearchBlockEntity extends BlockEntity implements Container, MenuProvider {
@@ -57,7 +59,7 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
         power = pumping ? 1 + pumpTicks/10 : 0;
         if (pumping && burnTicks == 0) {
             ItemStack fuel = items.get(1);
-            int burn = ForgeHooks.getBurnTime(fuel, null);
+            int burn = fuel.getBurnTime(RecipeType.SMELTING);
             if (burn > 0) {
                 ItemStack remainder = fuel.getCraftingRemainingItem();
                 fuel.shrink(1);
@@ -77,10 +79,11 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
                 if (!observation.onset()) {
                     var component = experiment.components().get(observation.component());
                     ItemStack output = new ItemStack(ResearchRegistry.EXTRACT.get(), observation.mixed() ? 1 : component.amount());
-                    var data = output.getOrCreateTag();
+                    var data = new CompoundTag();
                     data.putString("Material", observation.mixed() ? "mixed" : component.id());
                     data.putBoolean("Mixed", observation.mixed());
                     data.putUUID("Experiment", experimentId);
+                    output.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
                     pending.add(output);
                 }
             }
@@ -106,14 +109,14 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
         for (ItemStack stack : pending) Containers.dropItemStack(level, worldPosition.getX()+0.5, worldPosition.getY()+0.5, worldPosition.getZ()+0.5, stack);
         pending.clear();
     }
-    @Override protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
-        ContainerHelper.saveAllItems(tag, items);
+    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        ContainerHelper.saveAllItems(tag, items, registries);
         tag.putDouble("Temperature", temperature);
         tag.putInt("Fuel", burnTicks);
         tag.putUUID("ExperimentId", experimentId);
         ListTag queue = new ListTag();
-        pending.forEach(stack -> queue.add(stack.save(new CompoundTag())));
+        pending.forEach(stack -> queue.add(stack.save(registries)));
         tag.put("Pending", queue);
         if (experiment != null) {
             ListTag parts = new ListTag();
@@ -130,14 +133,14 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
             tag.put("Components", parts);
         }
     }
-    @Override public void load(CompoundTag tag) {
-        super.load(tag);
+    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items);
+        ContainerHelper.loadAllItems(tag, items, registries);
         temperature = Math.max(20, tag.getDouble("Temperature")); burnTicks = tag.getInt("Fuel");
         if (tag.hasUUID("ExperimentId")) experimentId = tag.getUUID("ExperimentId");
         pending.clear();
-        tag.getList("Pending", Tag.TAG_COMPOUND).forEach(t -> pending.add(ItemStack.of((CompoundTag)t)));
+        tag.getList("Pending", Tag.TAG_COMPOUND).forEach(t -> ItemStack.parse(registries, t).ifPresent(pending::add));
         experiment = null;
         ListTag parts = tag.getList("Components", Tag.TAG_COMPOUND);
         if (!parts.isEmpty()) {

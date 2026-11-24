@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:voltarite_ingot"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:voltarite_nugget",
+    "count": 9
+  }
+}

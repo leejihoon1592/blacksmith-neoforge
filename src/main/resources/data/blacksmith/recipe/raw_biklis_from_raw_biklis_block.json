@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:raw_biklis_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:raw_biklis",
+    "count": 9
+  }
+}

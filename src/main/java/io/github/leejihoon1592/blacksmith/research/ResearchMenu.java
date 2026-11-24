@@ -8,7 +8,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.network.NetworkHooks;
 import java.util.List;
 
 public final class ResearchMenu extends AbstractContainerMenu {
@@ -41,8 +40,8 @@ public final class ResearchMenu extends AbstractContainerMenu {
                 addSlot(new Slot(contents,i,x,y) {
                     public boolean mayPlace(ItemStack stack) {
                         return switch(s) {
-                            case 0 -> (station==null || !station.running()) && net.minecraftforge.registries.ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath().endsWith("_raw_fragment");
-                            case 1 -> net.minecraftforge.common.ForgeHooks.getBurnTime(stack,null)>0;
+                            case 0 -> (station==null || !station.running()) && net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath().endsWith("_raw_fragment");
+                            case 1 -> stack.getBurnTime(net.minecraft.world.item.crafting.RecipeType.SMELTING)>0;
                             case 2 -> stack.is(Items.PAPER);
                             case 3 -> stack.is(ResearchRegistry.PEN.get());
                             default -> false;
@@ -69,7 +68,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
     public static void writeOpen(FriendlyByteBuf buf, int mode) { buf.writeInt(mode); buf.writeCollection(ResearchData.ids(), (b,s)->b.writeUtf(s,128)); }
     public static void openBook(ServerPlayer player, InteractionHand hand) {
         ItemStack held=player.getItemInHand(hand);
-        NetworkHooks.openScreen(player,new SimpleMenuProvider((id,inventory,p)-> {
+        player.openMenu(new SimpleMenuProvider((id,inventory,p)-> {
             SimpleContainer contents=new SimpleContainer(13); contents.setItem(0,held);
             ResearchMenu menu=new ResearchMenu(id,inventory,2,contents,null,new SimpleContainerData(4),ResearchData.ids());
             menu.hand=hand; return menu;

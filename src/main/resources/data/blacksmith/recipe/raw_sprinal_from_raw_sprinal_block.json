@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "blacksmith:raw_sprinal_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:raw_sprinal",
+    "count": 9
+  }
+}

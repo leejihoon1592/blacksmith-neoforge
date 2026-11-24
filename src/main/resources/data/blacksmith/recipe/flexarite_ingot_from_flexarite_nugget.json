@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:flexarite_nugget"
+    }
+  },
+  "result": {
+    "id": "blacksmith:flexarite_ingot",
+    "count": 1
+  }
+}

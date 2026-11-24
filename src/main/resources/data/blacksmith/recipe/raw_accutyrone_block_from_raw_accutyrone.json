@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "blacksmith:raw_accutyrone"
+    }
+  },
+  "result": {
+    "id": "blacksmith:raw_accutyrone_block",
+    "count": 1
+  }
+}
