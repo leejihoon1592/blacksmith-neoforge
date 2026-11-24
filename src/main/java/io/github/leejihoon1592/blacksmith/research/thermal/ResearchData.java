@@ -3,6 +3,7 @@ package io.github.leejihoon1592.blacksmith.research.thermal;
 import com.google.gson.*;
 import io.github.leejihoon1592.blacksmith.BlacksmithMod;
 import io.github.leejihoon1592.blacksmith.item.MetalIngotItem;
+import io.github.leejihoon1592.blacksmith.item.RawFragmentItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.CustomData;
@@ -75,8 +76,7 @@ public final class ResearchData extends SimpleJsonResourceReloadListener {
         String name = key.getPath();
         if (!name.endsWith("_raw_fragment")) return List.of();
         String metal = name.substring(0, name.length() - "_raw_fragment".length());
-        String host = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("ResearchHost");
-        if (host.isEmpty()) host = "stone";
+        String host = RawFragmentItem.researchHost(stack);
         return samples.getOrDefault(metal + "/" + host, List.of());
     }
     public static boolean isMetal(String material) {

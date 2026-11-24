@@ -279,5 +279,15 @@
   "item.blacksmith.research_pen": "기록용 펜",
   "item.blacksmith.research_note": "관측 기록지",
   "item.blacksmith.research_extract": "연구 추출물",
-  "research.blacksmith.host": "포함 암석: %s"
+  "research.blacksmith.host": "포함 암석: %s",
+  "tooltip.blacksmith.ingot.point": "녹는점 %s",
+  "tooltip.blacksmith.ingot.range": "가공 온도 범위 %s",
+  "tooltip.blacksmith.ingot.seconds": "녹는 시간 %s",
+  "tooltip.blacksmith.ingot.durability": "내구성 %s",
+  "tooltip.blacksmith.ingot.hardness": "강도 %s",
+  "tooltip.blacksmith.ingot.elasticity": "탄성 %s",
+  "tooltip.blacksmith.ingot.polish": "연마 %s",
+  "tooltip.blacksmith.ingot.conductivity": "전도성 %s",
+  "tooltip.blacksmith.ingot.weight": "무게 %s",
+  "tooltip.blacksmith.ingot.difficulty": "제작 난이도 %s"
 }

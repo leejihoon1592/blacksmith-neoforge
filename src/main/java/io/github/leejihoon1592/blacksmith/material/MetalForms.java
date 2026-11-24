@@ -1,6 +1,7 @@
 package io.github.leejihoon1592.blacksmith.material;
 
 import io.github.leejihoon1592.blacksmith.BlacksmithMod;
+import io.github.leejihoon1592.blacksmith.item.RawFragmentItem;
 
 import java.util.List;
 import net.minecraft.world.item.BlockItem;
@@ -15,7 +16,7 @@ final class MetalForms {
         return List.of(
                 item("raw_" + metal),
                 item(metal + "_nugget"),
-                item(metal + "_raw_fragment"),
+                BlacksmithMod.ITEMS.register(metal + "_raw_fragment", () -> new RawFragmentItem(new Item.Properties())),
                 block(metal + "_block", Blocks.DIAMOND_BLOCK),
                 block("raw_" + metal + "_block", Blocks.RAW_IRON_BLOCK),
                 block(metal + "_ore", Blocks.IRON_ORE),

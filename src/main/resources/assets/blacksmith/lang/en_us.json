@@ -279,5 +279,15 @@
   "item.blacksmith.research_pen": "Research Pen",
   "item.blacksmith.research_note": "Observation Paper",
   "item.blacksmith.research_extract": "Research Extract",
-  "research.blacksmith.host": "Host rock: %s"
+  "research.blacksmith.host": "Host rock: %s",
+  "tooltip.blacksmith.ingot.point": "Melting point %s",
+  "tooltip.blacksmith.ingot.range": "Forging range %s",
+  "tooltip.blacksmith.ingot.seconds": "Melting time %s",
+  "tooltip.blacksmith.ingot.durability": "Durability %s",
+  "tooltip.blacksmith.ingot.hardness": "Strength %s",
+  "tooltip.blacksmith.ingot.elasticity": "Elasticity %s",
+  "tooltip.blacksmith.ingot.polish": "Polish %s",
+  "tooltip.blacksmith.ingot.conductivity": "Conductivity %s",
+  "tooltip.blacksmith.ingot.weight": "Weight %s",
+  "tooltip.blacksmith.ingot.difficulty": "Crafting difficulty %s"
 }
