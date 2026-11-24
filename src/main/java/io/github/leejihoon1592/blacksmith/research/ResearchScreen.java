@@ -19,6 +19,7 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
     private boolean pumping;
     private int ticks,selected;
     private EditBox point,seconds;
+    private final Button[] scratchButtons = new Button[StrengthCandidates.COUNT];
     public ResearchScreen(ResearchMenu menu,Inventory inventory,Component title) {
         super(menu,inventory,title); imageWidth=340;imageHeight=menu.mode==2?170:232;
     }
@@ -53,6 +54,16 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
             point=input(150,80); seconds=input(150,116);
             button(246,79,80,tr("record"),()->save("point",point));
             button(246,115,80,tr("record"),()->save("seconds",seconds));
+            if (menu.mode == 1) {
+                for (int i = 0; i < scratchButtons.length; i++) {
+                    int choice = i;
+                    scratchButtons[i] = addRenderableWidget(Button.builder(Component.empty(),
+                            b -> minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
+                                    ResearchMenu.FIRST_SCRATCH_BUTTON + menu.scratchCount() * StrengthCandidates.COUNT + choice))
+                            .bounds(leftPos + 116 + 22 * i, topPos + 136, 22, 16).build());
+                }
+                updateScratchButtons();
+            }
         }
     }
     private void select(int delta) { if(!menu.materials.isEmpty()) selected=Math.floorMod(selected+delta,menu.materials.size());point.setValue("");seconds.setValue(""); }
@@ -61,7 +72,30 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
         try { ResearchNetwork.record(menu,menu.materials.get(selected),property,Double.parseDouble(box.getValue())); } catch(NumberFormatException ignored) {}
     }
     private void pump() { minecraft.gameMode.handleInventoryButtonClick(menu.containerId,1); }
-    @Override protected void containerTick() { super.containerTick();if(pumping && ++ticks%4==0) pump(); }
+    @Override protected void containerTick() {
+        super.containerTick();
+        if (pumping && ++ticks % 4 == 0) pump();
+        if (menu.mode == 1) updateScratchButtons();
+    }
+
+    private void updateScratchButtons() {
+        int start = menu.firstScratchCandidate();
+        for (int i = 0; i < scratchButtons.length; i++) {
+            Button button = scratchButtons[i];
+            int value = start + i;
+            button.visible = start > 0;
+            button.active = button.visible && menu.hasScratchSupplies();
+            button.setMessage(Component.literal(formatStrength(value)));
+        }
+    }
+    private static String formatStrength(int value) {
+        return value % 2 == 0 ? Integer.toString(value / 2) : value / 2 + ".5";
+    }
+
+    private static Component scratchText(ScratchResult result) {
+        return tr("scratch." + result.name().toLowerCase(java.util.Locale.ROOT));
+    }
+
     @Override public boolean mouseReleased(double x,double y,int button) { pumping=false;return super.mouseReleased(x,y,button); }
     @Override public boolean keyPressed(int key,int scan,int modifiers) {
         if(key!=256) {
@@ -90,7 +124,17 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
             text(g,Component.translatable("research.blacksmith.fuel",menu.value(1)/20),180,143);
         } else {
             text(g,tr("book"),20,29);
-            if(menu.mode==1) {text(g,tr("notes"),20,69);text(g,tr("hover_notes"),20,109);}
+            if (menu.mode == 1) {
+                text(g, tr("scratch_supplies"), 49, 29);
+                text(g, tr("appraisal_sample"), 96, 29);
+                int count = menu.scratchCount();
+                if (count > 0) {
+                    text(g, scratchText(menu.scratchObservation(count - 1).result()), 150, 21);
+                    text(g, Component.translatable("research.blacksmith.scratch_history", count, StrengthCandidates.TURNS), 268, 21);
+                }
+                text(g, tr("notes"), 20, 69);
+                text(g, tr("hover_notes"), 20, 109);
+            }
             if(!menu.materials.isEmpty()) {
                 String id=menu.materials.get(selected);
                 String key=java.util.Set.of("stone","deepslate","netherrack","end_stone").contains(id)?"block.minecraft."+id:"item.blacksmith."+id+"_ingot";
@@ -108,6 +152,18 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
     }
     @Override public void render(GuiGraphics g,int x,int y,float partial) {super.render(g,x,y,partial);renderTooltip(g,x,y);}
     @Override protected void renderTooltip(GuiGraphics g,int x,int y) {
+        if (menu.mode == 1 && menu.scratchCount() > 0
+                && isHovering(268, 18, 68, 13, x, y)) {
+            var lines = new java.util.ArrayList<Component>();
+            for (int i = 0; i < menu.scratchCount(); i++) {
+                var record = menu.scratchObservation(i);
+                lines.add(Component.translatable("research.blacksmith.scratch_record", i + 1,
+                        formatStrength(record.start()), formatStrength(record.start() + StrengthCandidates.COUNT - 1),
+                        formatStrength(record.selected()), scratchText(record.result())));
+            }
+            g.renderComponentTooltip(font, lines, x, y);
+            return;
+        }
         if(hoveredSlot==null || !hoveredSlot.hasItem() || !menu.getCarried().isEmpty()) return;
         var stack=hoveredSlot.getItem();
         var lines=stack.getTooltipLines(net.minecraft.world.item.Item.TooltipContext.of(minecraft.level), minecraft.player,net.minecraft.world.item.TooltipFlag.Default.NORMAL)

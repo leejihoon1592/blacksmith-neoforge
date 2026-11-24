@@ -72,8 +72,7 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
         if (experiment != null) {
             for (var observation : experiment.tick(temperature)) {
                 // Recording requires supplies at the instant of observation. Missing observations stay missed.
-                if (items.get(2).is(Items.PAPER) && items.get(3).is(ResearchRegistry.PEN.get())) {
-                    items.get(2).shrink(1);
+                if (ResearchSupplies.consumePaper(this, 2, 3)) {
                     pending.add(ObservationItem.create(observation, experimentId));
                 }
                 if (!observation.onset()) {

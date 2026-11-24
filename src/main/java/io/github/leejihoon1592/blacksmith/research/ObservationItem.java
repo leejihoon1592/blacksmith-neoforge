@@ -27,10 +27,34 @@ public final class ObservationItem extends Item {
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
         return stack;
     }
+    public static ItemStack createScratchNote(int sampleHalfPoints, ScratchResult result) {
+        ItemStack stack = new ItemStack(ResearchRegistry.NOTE.get());
+        var tag = new CompoundTag();
+        tag.putInt("ScratchSample", sampleHalfPoints);
+        tag.putString("ScratchResult", result.name());
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        return stack;
+    }
+
+    public static Component scratchLine(int sampleHalfPoints, ScratchResult result) {
+        String sample = sampleHalfPoints % 2 == 0 ? Integer.toString(sampleHalfPoints / 2)
+                : sampleHalfPoints / 2 + ".5";
+        return Component.translatable("research.blacksmith.scratch_note", sample,
+                Component.translatable("research.blacksmith.scratch." + result.name().toLowerCase(java.util.Locale.ROOT)));
+    }
+
     public static List<Component> lines(ItemStack stack) {
         var data = stack.get(DataComponents.CUSTOM_DATA);
         if (data == null) return List.of(Component.translatable("research.blacksmith.blank_note"));
         var tag = data.copyTag();
+        if (tag.contains("ScratchSample")) {
+            for (ScratchResult result : ScratchResult.values()) {
+                if (result.name().equals(tag.getString("ScratchResult"))) {
+                    return List.of(scratchLine(tag.getInt("ScratchSample"), result));
+                }
+            }
+            return List.of(Component.translatable("research.blacksmith.blank_note"));
+        }
         if (tag.getBoolean("Onset")) return List.of(
                 Component.translatable("research.blacksmith.onset"),
                 Component.translatable("research.blacksmith.temperature", tag.getDouble("Temperature")));
