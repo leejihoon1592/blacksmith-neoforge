@@ -29,7 +29,8 @@ public final class GuidebookItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
-            GuideNetwork.open(serverPlayer, book);
+            if (book == Book.MATERIALS) io.github.leejihoon1592.blacksmith.research.ResearchMenu.openBook(serverPlayer, hand);
+            else GuideNetwork.open(serverPlayer, book);
         }
         return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide);
     }

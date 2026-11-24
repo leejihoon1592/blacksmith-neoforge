@@ -49,6 +49,7 @@ public final class MetalIngots {
                     output.accept(BlacksmithMod.GUIDEBOOK.get());
                     output.accept(BlacksmithMod.MATERIAL_JOURNAL.get());
                     output.accept(BlacksmithMod.WEAPON_LEDGER.get());
+                    io.github.leejihoon1592.blacksmith.research.ResearchRegistry.creative(output);
                     ALL.forEach(ingot -> output.accept(ingot.get()));
                     OTHER_MATERIALS.forEach(item -> output.accept(item.get()));
                 })

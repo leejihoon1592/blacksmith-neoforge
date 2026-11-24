@@ -65,6 +65,7 @@ public class BlacksmithMod
         IEventBus modEventBus = context.getModEventBus();
 
         MetalIngots.registerCreativeTab();
+        io.github.leejihoon1592.blacksmith.research.ResearchRegistry.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);

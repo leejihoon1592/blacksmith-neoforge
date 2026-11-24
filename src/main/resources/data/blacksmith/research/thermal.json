@@ -1,0 +1,53 @@
+{
+  "base_seconds": {
+    "durability": 30,
+    "polish": 20,
+    "hardness": 35,
+    "elasticity": 25,
+    "conductivity": 15
+  },
+  "specializations": {
+    "duracilium": "durability",
+    "enduri": "durability",
+    "tenaloct": "durability",
+    "stevalite": "durability",
+    "accutyrone": "polish",
+    "charvin": "polish",
+    "clinsor": "polish",
+    "edgastium": "polish",
+    "criminaltalloi": "hardness",
+    "brackstal": "hardness",
+    "durathorn": "hardness",
+    "granteron": "hardness",
+    "flexarite": "elasticity",
+    "sprinal": "elasticity",
+    "liselborn": "elasticity",
+    "biklis": "elasticity",
+    "conductite": "conductivity",
+    "voltarite": "conductivity",
+    "lumesor": "conductivity",
+    "ginspa": "conductivity"
+  },
+  "hosts": {
+    "stone": {
+      "point": 1800,
+      "seconds": 45
+    },
+    "deepslate": {
+      "point": 2000,
+      "seconds": 65
+    },
+    "netherrack": {
+      "point": 1900,
+      "seconds": 55
+    },
+    "end_stone": {
+      "point": 1100,
+      "seconds": 30
+    }
+  },
+  "byproducts": {},
+  "sample_byproducts": {},
+  "close_temperature": 20,
+  "close_seconds": 2
+}

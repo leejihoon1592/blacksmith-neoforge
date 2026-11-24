@@ -93,6 +93,10 @@
                 },
                 {
                   "function": "minecraft:explosion_decay"
+                },
+                {
+                  "function": "minecraft:set_nbt",
+                  "tag": "{ResearchHost:\"netherrack\"}"
                 }
               ]
             }
