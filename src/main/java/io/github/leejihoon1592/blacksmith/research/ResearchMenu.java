@@ -12,6 +12,7 @@ import net.minecraft.world.item.*;
 import java.util.List;
 
 public final class ResearchMenu extends AbstractContainerMenu {
+    static final int STRENGTH_MODE = 3;
     public final int mode;
     public final List<String> materials;
     private final Container contents;
@@ -30,7 +31,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
         this(id, inventory, buf.readInt(), new SimpleContainer(13), null, new SimpleContainerData(4), buf.readList(b -> b.readUtf(128)));
     }
     public ResearchMenu(int id, Inventory inventory, ResearchBlockEntity station) {
-        this(id, inventory, station.table()?1:0, station, station, new ContainerData() {
+        this(id, inventory, station.kind().menuMode, station, station, new ContainerData() {
             public int get(int i) { return switch(i) { case 0 -> station.temperature(); case 1 -> station.fuel(); case 2 -> station.running()?1:0; default -> station.pendingCount(); }; }
             public void set(int i, int value) {}
             public int getCount() { return 4; }
@@ -58,7 +59,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
                     public int getMaxStackSize() { return s==0?1:super.getMaxStackSize(); }
                 });
             }
-        } else {
+        } else if (mode != STRENGTH_MODE) {
             addSlot(new Slot(contents,0,20,42) {
                 public boolean mayPlace(ItemStack s) { return mode!=2 && s.is(BlacksmithMod.MATERIAL_JOURNAL.get()); }
                 public boolean mayPickup(Player p) { return mode!=2; }
@@ -67,7 +68,12 @@ public final class ResearchMenu extends AbstractContainerMenu {
                 public boolean mayPlace(ItemStack s) { return s.is(ResearchRegistry.NOTE.get()); }
             });
         }
-        if (mode == 1) {
+        if (mode == STRENGTH_MODE) {
+            for (int i = 0; i < StrengthCandidates.TURNS; i++) {
+                addSlot(new Slot(contents, i + 1, 20 + i * 19, 82) {
+                    @Override public boolean mayPlace(ItemStack stack) { return false; }
+                });
+            }
             for (int i = 0; i < scratchObservations.length; i++) {
                 scratchObservations[i] = addDataSlot(DataSlot.standalone());
             }
@@ -94,7 +100,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
                 }
             });
         }
-        if (mode == 1 && station != null) updateScratchSample();
+        if (mode == STRENGTH_MODE && station != null) updateScratchSample();
         machineSlots=slots.size();
         if(mode!=2) {
             for(int row=0;row<3;row++) for(int col=0;col<9;col++) addSlot(new Slot(inventory,col+row*9+9,79+col*18,154+row*18));
@@ -113,7 +119,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
     public int value(int i) { return values.get(i); }
     public ItemStack book() { return contents.getItem(0); }
     public void record(Player player,String material,String property,double guess) {
-        if(mode==0 || !stillValid(player) || !book().is(BlacksmithMod.MATERIAL_JOURNAL.get()) || !(property.equals("point")||property.equals("seconds"))) return;
+        if((mode != 1 && mode != 2) || !stillValid(player) || !book().is(BlacksmithMod.MATERIAL_JOURNAL.get()) || !(property.equals("point")||property.equals("seconds"))) return;
         ResearchData.record(book(),material,property,guess);
         contents.setChanged(); player.getInventory().setChanged(); broadcastChanges();
     }
@@ -154,7 +160,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
     public record ScratchObservation(int start, int selected, ScratchResult result) {}
 
     @Override public void broadcastChanges() {
-        if (mode == 1 && station != null && scratchSample != contents.getItem(APPRAISAL_SLOT)) {
+        if (mode == STRENGTH_MODE && station != null && scratchSample != contents.getItem(APPRAISAL_SLOT)) {
             updateScratchSample();
         }
         super.broadcastChanges();
@@ -175,9 +181,11 @@ public final class ResearchMenu extends AbstractContainerMenu {
         var candidates = StrengthCandidates.forTurn(strength, turn + 1);
         int selected = candidates.get(choice);
         ScratchResult result = ScratchResult.compare(strength, selected);
-        if (!ResearchSupplies.consumePaper(contents, PAPER_SLOT, PEN_SLOT)) return false;
+        int outputSlot = 1;
+        while (outputSlot <= StrengthCandidates.TURNS && !contents.getItem(outputSlot).isEmpty()) outputSlot++;
+        if (outputSlot > StrengthCandidates.TURNS || !ResearchSupplies.consumePaper(contents, PAPER_SLOT, PEN_SLOT)) return false;
 
-        player.getInventory().placeItemBackInInventory(ObservationItem.createScratchNote(selected, result));
+        contents.setItem(outputSlot, ObservationItem.createScratchNote(selected, result));
         player.sendSystemMessage(ObservationItem.scratchLine(selected, result));
         // Store candidate start, selected offset, and result in one synced value. Zero means unobserved.
         int packed = (candidates.getFirst() << 6) | (choice << 2) | result.ordinal();
@@ -188,7 +196,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
     }
 
     @Override public boolean clickMenuButton(Player player,int button) {
-        if (mode == 1) return scratch(player, button);
+        if (mode == STRENGTH_MODE) return scratch(player, button);
         if(station==null || mode!=0 || !stillValid(player)) return false;
         if(button==0) station.start(); else if(button==1) station.pump(); else return false;
         return true;

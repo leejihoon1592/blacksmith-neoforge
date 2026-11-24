@@ -19,6 +19,7 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
     private boolean pumping;
     private int ticks,selected;
     private EditBox point,seconds;
+    private int displayedScratchTurn = -1;
     private final Button[] scratchButtons = new Button[StrengthCandidates.COUNT];
     public ResearchScreen(ResearchMenu menu,Inventory inventory,Component title) {
         super(menu,inventory,title); imageWidth=340;imageHeight=menu.mode==2?170:232;
@@ -48,13 +49,14 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
         if(menu.mode==0) {
             button(185,72,130,tr("start"),()->minecraft.gameMode.handleInventoryButtonClick(menu.containerId,0));
             button(185,100,130,tr("bellows"),()->{pumping=true;pump();});
-        } else {
+        } else if (menu.mode != ResearchMenu.STRENGTH_MODE) {
             button(150,34,22,Component.literal("<"),()->select(-1));
             button(306,34,22,Component.literal(">"),()->select(1));
             point=input(150,80); seconds=input(150,116);
             button(246,79,80,tr("record"),()->save("point",point));
             button(246,115,80,tr("record"),()->save("seconds",seconds));
-            if (menu.mode == 1) {
+        }
+        if (menu.mode == ResearchMenu.STRENGTH_MODE) {
                 for (int i = 0; i < scratchButtons.length; i++) {
                     int choice = i;
                     scratchButtons[i] = addRenderableWidget(Button.builder(Component.empty(),
@@ -63,7 +65,6 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
                             .bounds(leftPos + 116 + 22 * i, topPos + 136, 22, 16).build());
                 }
                 updateScratchButtons();
-            }
         }
     }
     private void select(int delta) { if(!menu.materials.isEmpty()) selected=Math.floorMod(selected+delta,menu.materials.size());point.setValue("");seconds.setValue(""); }
@@ -75,11 +76,19 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
     @Override protected void containerTick() {
         super.containerTick();
         if (pumping && ++ticks % 4 == 0) pump();
-        if (menu.mode == 1) updateScratchButtons();
+        if (menu.mode == ResearchMenu.STRENGTH_MODE) updateScratchButtons();
     }
 
     private void updateScratchButtons() {
         int start = menu.firstScratchCandidate();
+        int turn = menu.scratchCount();
+        if (displayedScratchTurn != turn) {
+            for (Button button : scratchButtons) {
+                if (getFocused() == button) setFocused(null);
+                button.setFocused(false);
+            }
+            displayedScratchTurn = turn;
+        }
         for (int i = 0; i < scratchButtons.length; i++) {
             Button button = scratchButtons[i];
             int value = start + i;
@@ -122,9 +131,7 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
             text(g,tr(menu.value(2)==1?"running":"idle"),185,49);
             text(g,tr("hold_hint"),180,132);
             text(g,Component.translatable("research.blacksmith.fuel",menu.value(1)/20),180,143);
-        } else {
-            text(g,tr("book"),20,29);
-            if (menu.mode == 1) {
+        } else if (menu.mode == ResearchMenu.STRENGTH_MODE) {
                 text(g, tr("scratch_supplies"), 49, 29);
                 text(g, tr("appraisal_sample"), 96, 29);
                 int count = menu.scratchCount();
@@ -132,6 +139,11 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
                     text(g, scratchText(menu.scratchObservation(count - 1).result()), 150, 21);
                     text(g, Component.translatable("research.blacksmith.scratch_history", count, StrengthCandidates.TURNS), 268, 21);
                 }
+                text(g, tr("notes"), 20, 69);
+                text(g, tr("hover_notes"), 20, 109);
+        } else {
+            text(g, tr("book"), 20, 29);
+            if (menu.mode == 1) {
                 text(g, tr("notes"), 20, 69);
                 text(g, tr("hover_notes"), 20, 109);
             }
@@ -152,7 +164,7 @@ public final class ResearchScreen extends AbstractContainerScreen<ResearchMenu> 
     }
     @Override public void render(GuiGraphics g,int x,int y,float partial) {super.render(g,x,y,partial);renderTooltip(g,x,y);}
     @Override protected void renderTooltip(GuiGraphics g,int x,int y) {
-        if (menu.mode == 1 && menu.scratchCount() > 0
+        if (menu.mode == ResearchMenu.STRENGTH_MODE && menu.scratchCount() > 0
                 && isHovering(268, 18, 68, 13, x, y)) {
             var lines = new java.util.ArrayList<Component>();
             for (int i = 0; i < menu.scratchCount(); i++) {

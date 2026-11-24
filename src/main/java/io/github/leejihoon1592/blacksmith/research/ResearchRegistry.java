@@ -17,9 +17,14 @@ public final class ResearchRegistry {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, BlacksmithMod.MODID);
     public static final DeferredHolder<Block, ResearchBlock> FURNACE = BlacksmithMod.BLOCKS.register("research_furnace",
             // The research furnace has no vanilla LIT property.
-            () -> new ResearchBlock(false, BlockBehaviour.Properties.ofFullCopy(Blocks.FURNACE).lightLevel(state -> 0)));
+            () -> new ResearchBlock(ResearchBlock.Kind.FURNACE, BlockBehaviour.Properties.ofFullCopy(Blocks.FURNACE).lightLevel(state -> 0)));
     public static final DeferredHolder<Block, ResearchBlock> TABLE = BlacksmithMod.BLOCKS.register("research_table",
-            () -> new ResearchBlock(true, BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE)));
+            () -> new ResearchBlock(ResearchBlock.Kind.TABLE, BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE)));
+    public static final DeferredHolder<Block, ResearchBlock> STRENGTH_TABLE = BlacksmithMod.BLOCKS.register(
+            "strength_research_table",
+            () -> new ResearchBlock(ResearchBlock.Kind.STRENGTH, BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE)));
+    public static final DeferredHolder<Item, Item> STRENGTH_TABLE_ITEM = BlacksmithMod.ITEMS.register(
+            "strength_research_table", () -> new BlockItem(STRENGTH_TABLE.get(), new Item.Properties()));
     public static final DeferredHolder<Item, Item> FURNACE_ITEM = BlacksmithMod.ITEMS.register("research_furnace", () -> new BlockItem(FURNACE.get(), new Item.Properties()));
     public static final DeferredHolder<Item, Item> TABLE_ITEM = BlacksmithMod.ITEMS.register("research_table", () -> new BlockItem(TABLE.get(), new Item.Properties()));
     public static final DeferredHolder<Item, Item> PEN = BlacksmithMod.ITEMS.register("research_pen", () -> new Item(new Item.Properties().stacksTo(1)));
@@ -31,12 +36,12 @@ public final class ResearchRegistry {
         }
     });
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ResearchBlockEntity>> ENTITY = ENTITIES.register("research_station",
-            () -> BlockEntityType.Builder.of(ResearchBlockEntity::new, FURNACE.get(), TABLE.get()).build(null));
+            () -> BlockEntityType.Builder.of(ResearchBlockEntity::new, FURNACE.get(), TABLE.get(), STRENGTH_TABLE.get()).build(null));
     public static final DeferredHolder<MenuType<?>, MenuType<ResearchMenu>> MENU = MENUS.register("research",
             () -> IMenuTypeExtension.create(ResearchMenu::new));
     public static void register(IEventBus bus) { ENTITIES.register(bus); MENUS.register(bus); bus.addListener(ResearchNetwork::register); }
     public static void creative(CreativeModeTab.Output output) {
-        output.accept(FURNACE_ITEM.get()); output.accept(TABLE_ITEM.get()); output.accept(PEN.get());
+        output.accept(FURNACE_ITEM.get()); output.accept(TABLE_ITEM.get()); output.accept(STRENGTH_TABLE_ITEM.get()); output.accept(PEN.get());
     }
     private ResearchRegistry() {}
 }

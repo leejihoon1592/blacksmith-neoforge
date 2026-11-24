@@ -12,20 +12,38 @@ import net.minecraft.world.phys.BlockHitResult;
 import com.mojang.serialization.MapCodec;
 
 public final class ResearchBlock extends BaseEntityBlock {
-    private final boolean table;
-    public ResearchBlock(boolean table, Properties properties) { super(properties); this.table = table; }
-    @Override protected MapCodec<ResearchBlock> codec() {
-        return simpleCodec(properties -> new ResearchBlock(table, properties));
+    enum Kind {
+        FURNACE(0, "research_furnace"),
+        TABLE(1, "research_table"),
+        STRENGTH(ResearchMenu.STRENGTH_MODE, "strength_research_table");
+
+        final int menuMode;
+        final String blockId;
+
+        Kind(int menuMode, String blockId) {
+            this.menuMode = menuMode;
+            this.blockId = blockId;
+        }
     }
-    public boolean isTable() { return table; }
+
+    final Kind kind;
+
+    ResearchBlock(Kind kind, Properties properties) {
+        super(properties);
+        this.kind = kind;
+    }
+    @Override protected MapCodec<ResearchBlock> codec() {
+        return simpleCodec(properties -> new ResearchBlock(kind, properties));
+    }
     @Override public RenderShape getRenderShape(BlockState state) { return RenderShape.MODEL; }
     @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new ResearchBlockEntity(pos, state); }
     @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return level.isClientSide || table ? null : createTickerHelper(type, ResearchRegistry.ENTITY.get(), ResearchBlockEntity::tick);
+        return level.isClientSide || kind != Kind.FURNACE ? null : createTickerHelper(type, ResearchRegistry.ENTITY.get(), ResearchBlockEntity::tick);
     }
     @Override public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (player instanceof ServerPlayer server && level.getBlockEntity(pos) instanceof ResearchBlockEntity station) {
-            server.openMenu(station, buf -> { ResearchMenu.writeOpen(buf, table ? 1 : 0); });
+            if (kind == Kind.TABLE) station.returnPrototypeInputs(server);
+            server.openMenu(station, buf -> ResearchMenu.writeOpen(buf, kind.menuMode));
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }

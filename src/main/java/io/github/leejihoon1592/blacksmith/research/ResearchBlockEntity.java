@@ -28,14 +28,24 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
     private int power;
 
     public ResearchBlockEntity(BlockPos pos, BlockState state) { super(ResearchRegistry.ENTITY.get(), pos, state); }
-    public boolean table() { return ((ResearchBlock)getBlockState().getBlock()).isTable(); }
+    ResearchBlock.Kind kind() { return ((ResearchBlock) getBlockState().getBlock()).kind; }
+
+    void returnPrototypeInputs(Player player) {
+        for (int slot = 7; slot <= 9; slot++) {
+            ItemStack stack = removeItemNoUpdate(slot);
+            if (!stack.isEmpty()) {
+                setChanged();
+                player.getInventory().placeItemBackInInventory(stack);
+            }
+        }
+    }
     public boolean running() { return experiment != null; }
     public int temperature() { return (int)Math.round(temperature); }
     public int fuel() { return burnTicks; }
     public int pendingCount() { return pending.size(); }
 
     public void start() {
-        if (table() || running() || !pending.isEmpty()) return;
+        if (kind() != ResearchBlock.Kind.FURNACE || running() || !pending.isEmpty()) return;
         var parts = ResearchData.sample(items.get(0));
         if (parts.isEmpty()) return;
         items.get(0).shrink(1);
@@ -45,7 +55,7 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
     }
 
     public void pump() {
-        if (table() || level == null || level.getGameTime() == lastPump) return;
+        if (kind() != ResearchBlock.Kind.FURNACE || level == null || level.getGameTime() == lastPump) return;
         lastPump = level.getGameTime();
         setChanged();
     }
@@ -156,7 +166,7 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
             }
         }
     }
-    @Override public Component getDisplayName() { return Component.translatable("block.blacksmith." + (table() ? "research_table" : "research_furnace")); }
+    @Override public Component getDisplayName() { return Component.translatable("block.blacksmith." + kind().blockId); }
     @Override public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) { return new ResearchMenu(id, inventory, this); }
     @Override public int getContainerSize() { return SIZE; }
     @Override public boolean isEmpty() { return items.stream().allMatch(ItemStack::isEmpty); }
