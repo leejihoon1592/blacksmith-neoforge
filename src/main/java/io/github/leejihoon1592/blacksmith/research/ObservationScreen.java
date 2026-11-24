@@ -1,5 +1,7 @@
 package io.github.leejihoon1592.blacksmith.research;
 
+import io.github.leejihoon1592.blacksmith.item.ObservationItem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;

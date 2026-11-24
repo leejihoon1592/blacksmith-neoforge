@@ -1,5 +1,7 @@
 package io.github.leejihoon1592.blacksmith.research;
 
+import io.github.leejihoon1592.blacksmith.research.thermal.ResearchMenu;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
@@ -15,7 +17,9 @@ public final class ResearchBlock extends BaseEntityBlock {
     enum Kind {
         FURNACE(0, "research_furnace"),
         TABLE(1, "research_table"),
-        STRENGTH(ResearchMenu.STRENGTH_MODE, "strength_research_table");
+        STRENGTH(3, "strength_research_table"),
+        ELASTICITY(4, "elasticity_research_table"),
+        POLISH(5, "polish_research_table");
 
         final int menuMode;
         final String blockId;
@@ -43,7 +47,8 @@ public final class ResearchBlock extends BaseEntityBlock {
     @Override public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (player instanceof ServerPlayer server && level.getBlockEntity(pos) instanceof ResearchBlockEntity station) {
             if (kind == Kind.TABLE) station.returnPrototypeInputs(server);
-            server.openMenu(station, buf -> ResearchMenu.writeOpen(buf, kind.menuMode));
+            if (kind == Kind.STRENGTH || kind == Kind.ELASTICITY || kind == Kind.POLISH) server.openMenu(station);
+            else server.openMenu(station, buf -> ResearchMenu.writeOpen(buf, kind.menuMode));
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }

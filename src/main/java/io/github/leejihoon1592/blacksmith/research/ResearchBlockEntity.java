@@ -1,5 +1,13 @@
 package io.github.leejihoon1592.blacksmith.research;
 
+import io.github.leejihoon1592.blacksmith.item.ObservationItem;
+import io.github.leejihoon1592.blacksmith.research.elasticity.ElasticityResearchMenu;
+import io.github.leejihoon1592.blacksmith.research.polish.PolishResearchMenu;
+import io.github.leejihoon1592.blacksmith.research.thermal.ResearchData;
+import io.github.leejihoon1592.blacksmith.research.thermal.ResearchMenu;
+import io.github.leejihoon1592.blacksmith.research.thermal.ThermalExperiment;
+import io.github.leejihoon1592.blacksmith.research.strength.StrengthResearchMenu;
+
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
@@ -29,6 +37,8 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
 
     public ResearchBlockEntity(BlockPos pos, BlockState state) { super(ResearchRegistry.ENTITY.get(), pos, state); }
     ResearchBlock.Kind kind() { return ((ResearchBlock) getBlockState().getBlock()).kind; }
+
+    public int thermalMenuMode() { return kind().menuMode; }
 
     void returnPrototypeInputs(Player player) {
         for (int slot = 7; slot <= 9; slot++) {
@@ -167,7 +177,12 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
         }
     }
     @Override public Component getDisplayName() { return Component.translatable("block.blacksmith." + kind().blockId); }
-    @Override public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) { return new ResearchMenu(id, inventory, this); }
+    @Override public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) { return switch (kind()) {
+        case STRENGTH -> new StrengthResearchMenu(id, inventory, this);
+        case POLISH -> new PolishResearchMenu(id, inventory, this);
+        case ELASTICITY -> new ElasticityResearchMenu(id, inventory, this);
+        case FURNACE, TABLE -> new ResearchMenu(id, inventory, this);
+    };  }
     @Override public int getContainerSize() { return SIZE; }
     @Override public boolean isEmpty() { return items.stream().allMatch(ItemStack::isEmpty); }
     @Override public ItemStack getItem(int slot) { return items.get(slot); }

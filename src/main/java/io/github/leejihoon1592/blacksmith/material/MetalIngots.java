@@ -1,5 +1,7 @@
 package io.github.leejihoon1592.blacksmith.material;
 
+import io.github.leejihoon1592.blacksmith.item.MetalIngotItem;
+
 import io.github.leejihoon1592.blacksmith.BlacksmithMod;
 
 import net.minecraft.network.chat.Component;

@@ -1,4 +1,4 @@
-package io.github.leejihoon1592.blacksmith.research;
+package io.github.leejihoon1592.blacksmith.research.thermal;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

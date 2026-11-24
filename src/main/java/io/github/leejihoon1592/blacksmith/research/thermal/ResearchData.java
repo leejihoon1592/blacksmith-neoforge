@@ -1,8 +1,8 @@
-package io.github.leejihoon1592.blacksmith.research;
+package io.github.leejihoon1592.blacksmith.research.thermal;
 
 import com.google.gson.*;
 import io.github.leejihoon1592.blacksmith.BlacksmithMod;
-import io.github.leejihoon1592.blacksmith.material.MetalIngotItem;
+import io.github.leejihoon1592.blacksmith.item.MetalIngotItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.CustomData;
@@ -79,21 +79,63 @@ public final class ResearchData extends SimpleJsonResourceReloadListener {
         if (host.isEmpty()) host = "stone";
         return samples.getOrDefault(metal + "/" + host, List.of());
     }
+    public static boolean isMetal(String material) {
+        return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("blacksmith", material + "_ingot"))
+                instanceof MetalIngotItem;
+    }
+
     public static Material material(String id) { return materials.get(id); }
     public static List<String> ids() { return List.copyOf(materials.keySet()); }
     private static final String ENTRIES = "ResearchEntries";
 
+    public static boolean isMechanicalProperty(String property) {
+        return property.equals("hardness") || property.equals("elasticity") || property.equals("polish");
+    }
+
     public static void record(ItemStack book, String material, String property, double guess) {
         Material definition = materials.get(material);
         if (definition == null || !Double.isFinite(guess) || guess <= 0 || guess > 10000) return;
-        double actual = property.equals("point") ? definition.point() : definition.seconds();
-        double tolerance = property.equals("point") ? closeTemperature : closeSeconds;
+        double actual;
+        double tolerance;
+        MetalIngotItem.Stats stats = null;
+        switch (property) {
+            case "point" -> {
+                actual = definition.point();
+                tolerance = closeTemperature;
+            }
+            case "seconds" -> {
+                actual = definition.seconds();
+                tolerance = closeSeconds;
+            }
+            case "hardness", "elasticity", "polish" -> {
+                var item = BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("blacksmith", material + "_ingot"));
+                if (!(item instanceof MetalIngotItem ingot) || guess * 2 != Math.rint(guess * 2)) return;
+                stats = ingot.baseStats();
+                actual = switch (property) {
+                    case "hardness" -> stats.hardness();
+                    case "elasticity" -> stats.elasticity();
+                    default -> stats.polish();
+                };
+                tolerance = 0.5;
+            }
+            default -> { return; }
+        }
         double error = Math.abs(actual - guess);
         var data = book.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         var entries = data.getCompound(ENTRIES);
         var entry = entries.getCompound(material);
         entry.putDouble(property, guess);
         entry.putInt(property + "Grade", error < 0.0001 ? 2 : error <= tolerance ? 1 : 0);
+        if (stats != null) {
+            if (entry.getInt("hardnessGrade") == 2 && entry.getInt("elasticityGrade") == 2
+                    && entry.getInt("polishGrade") == 2) {
+                entry.putDouble("durability", stats.durability());
+                entry.putInt("durabilityGrade", 2);
+            } else {
+                entry.remove("durability");
+                entry.remove("durabilityGrade");
+            }
+        }
         entries.put(material, entry);
         data.put(ENTRIES, entries);
         book.set(DataComponents.CUSTOM_DATA, CustomData.of(data));

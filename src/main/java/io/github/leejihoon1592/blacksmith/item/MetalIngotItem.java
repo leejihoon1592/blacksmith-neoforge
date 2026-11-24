@@ -1,4 +1,4 @@
-package io.github.leejihoon1592.blacksmith.material;
+package io.github.leejihoon1592.blacksmith.item;
 
 import net.minecraft.world.item.Item;
 

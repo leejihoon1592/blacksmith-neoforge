@@ -1,4 +1,4 @@
-package io.github.leejihoon1592.blacksmith.research;
+package io.github.leejihoon1592.blacksmith.research.strength;
 
 import java.util.List;
 import java.util.stream.IntStream;

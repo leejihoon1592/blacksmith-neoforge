@@ -1,7 +1,7 @@
-package io.github.leejihoon1592.blacksmith.research;
+package io.github.leejihoon1592.blacksmith.research.thermal;
 
 import java.util.*;
-import io.github.leejihoon1592.blacksmith.material.MetalIngotItem.Stats;
+import io.github.leejihoon1592.blacksmith.item.MetalIngotItem.Stats;
 
 /** Runs without a world or client; failures abort Gradle check. */
 public final class ThermalResearchTest {

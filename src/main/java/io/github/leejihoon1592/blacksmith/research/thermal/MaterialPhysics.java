@@ -1,6 +1,6 @@
-package io.github.leejihoon1592.blacksmith.research;
+package io.github.leejihoon1592.blacksmith.research.thermal;
 
-import io.github.leejihoon1592.blacksmith.material.MetalIngotItem.Stats;
+import io.github.leejihoon1592.blacksmith.item.MetalIngotItem.Stats;
 
 /** Sheet3 formulas. Thermal and weight properties use pre-bonus material stats. */
 public final class MaterialPhysics {

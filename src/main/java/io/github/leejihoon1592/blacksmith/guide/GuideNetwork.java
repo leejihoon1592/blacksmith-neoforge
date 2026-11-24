@@ -1,5 +1,7 @@
 package io.github.leejihoon1592.blacksmith.guide;
 
+import io.github.leejihoon1592.blacksmith.item.GuidebookItem;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -38,7 +40,7 @@ public final class GuideNetwork {
         });
     }
 
-    static void open(ServerPlayer player, GuidebookItem.Book book) {
+    public static void open(ServerPlayer player, GuidebookItem.Book book) {
         boolean read = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG).getBoolean(READ_KEY);
         PacketDistributor.sendToPlayer(player, new Open(book, read));
     }

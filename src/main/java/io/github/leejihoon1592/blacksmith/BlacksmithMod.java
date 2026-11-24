@@ -2,7 +2,7 @@ package io.github.leejihoon1592.blacksmith;
 
 import com.mojang.logging.LogUtils;
 import io.github.leejihoon1592.blacksmith.guide.GuideNetwork;
-import io.github.leejihoon1592.blacksmith.guide.GuidebookItem;
+import io.github.leejihoon1592.blacksmith.item.GuidebookItem;
 import io.github.leejihoon1592.blacksmith.material.MetalIngots;
 import io.github.leejihoon1592.blacksmith.research.ResearchRegistry;
 import io.github.leejihoon1592.blacksmith.material.MiningToolPredicate;

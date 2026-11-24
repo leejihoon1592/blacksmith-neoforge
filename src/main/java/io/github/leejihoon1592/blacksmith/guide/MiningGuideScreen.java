@@ -1,5 +1,7 @@
 package io.github.leejihoon1592.blacksmith.guide;
 
+import io.github.leejihoon1592.blacksmith.item.GuidebookItem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.PlainTextButton;
@@ -16,7 +18,7 @@ public final class MiningGuideScreen extends Screen {
     private int top;
 
     private MiningGuideScreen(GuidebookItem.Book book, boolean miningRead) {
-        super(Component.translatable("item.blacksmith." + book.id));
+        super(Component.translatable("item.blacksmith." + book.id()));
         this.book = book;
         this.miningRead = miningRead;
     }
@@ -64,7 +66,7 @@ public final class MiningGuideScreen extends Screen {
         g.fill(x+146,y,x+292,y+174,0xfff5ead0);
         g.fill(x+143,y,x+148,y+174,0xffc3ac88);
         g.drawWordWrap(font,title,x+12,y+15,121,0xff634735);
-        g.drawWordWrap(font,text(book.id + ".intro"),x+12,y+48,119,0xff44382e);
+        g.drawWordWrap(font,text(book.id() + ".intro"),x+12,y+48,119,0xff44382e);
         Component heading = book == GuidebookItem.Book.PRIMER
                 ? text(mining ? "mining" : "contents") : text("records");
         g.drawString(font,heading,x+157,y+15,0xff493326,false);
@@ -76,7 +78,7 @@ public final class MiningGuideScreen extends Screen {
             g.drawWordWrap(font,text("diamond"),x+177,y+76,103,0xff44382e);
             g.drawWordWrap(font,text("enchantments"),x+157,y+105,123,0xff594236);
         } else if (book != GuidebookItem.Book.PRIMER) {
-            g.drawWordWrap(font,text(book.id + ".empty"),x+157,y+52,120,0xff594236);
+            g.drawWordWrap(font,text(book.id() + ".empty"),x+157,y+52,120,0xff594236);
         }
         super.render(g, mouseX, mouseY, partialTick);
     }

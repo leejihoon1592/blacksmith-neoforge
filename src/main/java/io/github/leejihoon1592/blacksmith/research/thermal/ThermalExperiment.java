@@ -1,4 +1,4 @@
-package io.github.leejihoon1592.blacksmith.research;
+package io.github.leejihoon1592.blacksmith.research.thermal;
 
 import java.util.ArrayList;
 import java.util.List;

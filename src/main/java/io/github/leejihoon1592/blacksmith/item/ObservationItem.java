@@ -1,4 +1,10 @@
-package io.github.leejihoon1592.blacksmith.research;
+package io.github.leejihoon1592.blacksmith.item;
+
+import io.github.leejihoon1592.blacksmith.research.ObservationScreen;
+import io.github.leejihoon1592.blacksmith.research.ResearchRegistry;
+import io.github.leejihoon1592.blacksmith.research.strength.ScratchResult;
+import io.github.leejihoon1592.blacksmith.research.polish.PolishingDepth;
+import io.github.leejihoon1592.blacksmith.research.thermal.ThermalExperiment;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.component.DataComponents;
@@ -43,10 +49,45 @@ public final class ObservationItem extends Item {
                 Component.translatable("research.blacksmith.scratch." + result.name().toLowerCase(java.util.Locale.ROOT)));
     }
 
+    public static ItemStack createElasticityNote(int attempt, java.util.OptionalInt measuredHalfPoints) {
+        ItemStack stack = new ItemStack(ResearchRegistry.NOTE.get());
+        var tag = new CompoundTag();
+        tag.putInt("ElasticityAttempt", attempt);
+        measuredHalfPoints.ifPresent(value -> tag.putInt("ElasticityHeight", value));
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        return stack;
+    }
+
+    public static ItemStack createPolishNote(int attempt, int selectedForceHalfPoints, PolishingDepth.Observation observation) {
+        ItemStack stack = new ItemStack(ResearchRegistry.NOTE.get());
+        var tag = new CompoundTag();
+        tag.putInt("PolishAttempt", attempt);
+        tag.putInt("PolishSelectedForce", selectedForceHalfPoints);
+        tag.putString("PolishObservation", observation.name());
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        return stack;
+    }
+
     public static List<Component> lines(ItemStack stack) {
         var data = stack.get(DataComponents.CUSTOM_DATA);
         if (data == null) return List.of(Component.translatable("research.blacksmith.blank_note"));
         var tag = data.copyTag();
+        if (tag.contains("PolishAttempt")) {
+            for (var observation : PolishingDepth.Observation.values()) {
+                if (observation.name().equals(tag.getString("PolishObservation"))) {
+                    return List.of(Component.translatable("research.blacksmith.polish_note",
+                            tag.getInt("PolishAttempt"), tag.getInt("PolishSelectedForce") / 2.0,
+                            Component.translatable("research.blacksmith.polish_" + observation.name().toLowerCase(java.util.Locale.ROOT))));
+                }
+            }
+            return List.of(Component.translatable("research.blacksmith.blank_note"));
+        }
+        if (tag.contains("ElasticityAttempt")) {
+            int attempt = tag.getInt("ElasticityAttempt");
+            return List.of(tag.contains("ElasticityHeight")
+                    ? Component.translatable("research.blacksmith.elasticity_note", attempt, tag.getInt("ElasticityHeight") / 2.0)
+                    : Component.translatable("research.blacksmith.elasticity_miss_note", attempt));
+        }
         if (tag.contains("ScratchSample")) {
             for (ScratchResult result : ScratchResult.values()) {
                 if (result.name().equals(tag.getString("ScratchResult"))) {
