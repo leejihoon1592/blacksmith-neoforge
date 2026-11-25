@@ -65,7 +65,8 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
     }
 
     public boolean cleanFurnace() {
-        if (kind() != ResearchBlock.Kind.FURNACE || running()) return false;
+        if (kind() != ResearchBlock.Kind.FURNACE) return false;
+        experiment = null;
         temperature = 0;
         burnTicks = 0;
         lastPump = -100;
