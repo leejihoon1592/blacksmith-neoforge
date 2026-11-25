@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "mould=0": {
+      "model": "minecraft:block/smooth_stone"
+    },
+    "mould=1,open=false": {
+      "model": "minecraft:block/terracotta"
+    },
+    "mould=1,open=true": {
+      "model": "minecraft:block/orange_terracotta"
+    },
+    "mould=2,open=false": {
+      "model": "minecraft:block/bricks"
+    },
+    "mould=2,open=true": {
+      "model": "minecraft:block/red_terracotta"
+    }
+  }
+}

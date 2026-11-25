@@ -1,0 +1,6 @@
+{
+  "values": [
+    { "id": "blacksmith:coke", "required": false },
+    { "id": "#c:cokes", "required": false }
+  ]
+}

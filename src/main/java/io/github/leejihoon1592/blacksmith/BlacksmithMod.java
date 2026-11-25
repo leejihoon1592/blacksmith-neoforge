@@ -68,6 +68,7 @@ public class BlacksmithMod
 
         MetalIngots.registerCreativeTab();
         ResearchRegistry.register(modEventBus);
+        io.github.leejihoon1592.blacksmith.smelting.SmeltingBlocks.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
