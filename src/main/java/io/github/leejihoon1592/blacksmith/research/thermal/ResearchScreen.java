@@ -16,6 +16,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 @net.neoforged.fml.common.EventBusSubscriber(modid="blacksmith",value=Dist.CLIENT)
 public final class ResearchScreen extends ResearchStationScreen<ResearchMenu> {
     private boolean pumping;
+    private Button cleanFurnace;
     private int ticks,selected;
     private EditBox point,seconds,hardness,elasticity,polish;
     private Button hardnessRecord, elasticityRecord, polishRecord;
@@ -26,7 +27,7 @@ public final class ResearchScreen extends ResearchStationScreen<ResearchMenu> {
     private Button button(int x,int y,int width,Component text,Runnable action) {
         return addRenderableWidget(new Button(leftPos+x,topPos+y,width,20,text,b->action.run(),supplier->supplier.get()) {
             @Override public void renderWidget(GuiGraphics g,int mx,int my,float partial) {
-                g.fill(getX(),getY(),getX()+getWidth(),getY()+getHeight(),isHoveredOrFocused()?0xff85714e:0xff5d4b32);
+                g.fill(getX(),getY(),getX()+getWidth(),getY()+getHeight(),active ? (isHoveredOrFocused() ? 0xff85714e : 0xff5d4b32) : 0xff756b5a);
                 g.drawString(font,getMessage(),getX()+(getWidth()-font.width(getMessage()))/2,getY()+6,0xfff2e4c4,false);
             }
         });
@@ -45,6 +46,11 @@ public final class ResearchScreen extends ResearchStationScreen<ResearchMenu> {
         super.init();pumping=false;
         if(menu.mode==0) {
             button(185,72,130,tr("start"),()->minecraft.gameMode.handleInventoryButtonClick(menu.containerId,0));
+            cleanFurnace = button(253,8,62,tr("clean_furnace"),()->{
+                pumping = false;
+                minecraft.gameMode.handleInventoryButtonClick(menu.containerId, ResearchMenu.CLEAN_FURNACE_BUTTON);
+            });
+            cleanFurnace.active = menu.value(2) == 0;
             button(185,100,130,tr("bellows"),()->{pumping=true;pump();});
         } else {
             button(150,34,22,Component.literal("<"),()->select(-1));
@@ -70,6 +76,7 @@ public final class ResearchScreen extends ResearchStationScreen<ResearchMenu> {
     private void pump() { minecraft.gameMode.handleInventoryButtonClick(menu.containerId,1); }
     @Override protected void containerTick() {
         super.containerTick();
+        if (cleanFurnace != null) cleanFurnace.active = menu.value(2) == 0;
         if (pumping && ++ticks % 4 == 0) pump();
     }
 

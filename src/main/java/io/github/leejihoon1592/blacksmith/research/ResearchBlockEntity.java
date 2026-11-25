@@ -64,6 +64,17 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
         setChanged();
     }
 
+    public boolean cleanFurnace() {
+        if (kind() != ResearchBlock.Kind.FURNACE || running()) return false;
+        temperature = 0;
+        burnTicks = 0;
+        lastPump = -100;
+        pumpTicks = 0;
+        power = 0;
+        setChanged();
+        return true;
+    }
+
     public void pump() {
         if (kind() != ResearchBlock.Kind.FURNACE || level == null || level.getGameTime() == lastPump) return;
         lastPump = level.getGameTime();
@@ -88,7 +99,8 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
             }
         }
         if (burnTicks > 0) burnTicks--;
-        temperature = Math.max(20, Math.min(2200, temperature - 0.2 + (pumping && burnTicks > 0 ? power*0.5 : 0)));
+        double previousTemperature = temperature;
+        temperature = Math.max(0, Math.min(2200, temperature - 0.2 + (pumping && burnTicks > 0 ? power*0.5 : 0)));
         if (experiment != null) {
             for (var observation : experiment.tick(temperature)) {
                 // Recording requires supplies at the instant of observation. Missing observations stay missed.
@@ -109,7 +121,7 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
             if (experiment.complete()) experiment = null;
         }
         flushPending();
-        if (running() || burnTicks > 0 || temperature > 20 || !pending.isEmpty()) setChanged();
+        if (running() || burnTicks > 0 || temperature != previousTemperature || !pending.isEmpty()) setChanged();
     }
 
     private void flushPending() {
@@ -156,7 +168,8 @@ public final class ResearchBlockEntity extends BlockEntity implements Container,
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
-        temperature = Math.max(20, tag.getDouble("Temperature")); burnTicks = tag.getInt("Fuel");
+        temperature = tag.contains("Temperature") ? Math.max(0, tag.getDouble("Temperature")) : 20;
+        burnTicks = tag.getInt("Fuel");
         if (tag.hasUUID("ExperimentId")) experimentId = tag.getUUID("ExperimentId");
         pending.clear();
         tag.getList("Pending", Tag.TAG_COMPOUND).forEach(t -> ItemStack.parse(registries, t).ifPresent(pending::add));

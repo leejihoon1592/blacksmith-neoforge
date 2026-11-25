@@ -76,6 +76,8 @@ public final class ResearchMenu extends AbstractContainerMenu {
             menu.hand=hand; return menu;
         },Component.translatable("item.blacksmith.material_journal")),buf->writeOpen(buf,2));
     }
+    static final int CLEAN_FURNACE_BUTTON = 2;
+
     public int value(int i) { return values.get(i); }
     public ItemStack book() { return contents.getItem(0); }
     public void record(Player player,String material,String property,double guess) {
@@ -85,6 +87,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
     }
     @Override public boolean clickMenuButton(Player player,int button) {
         if(station==null || mode!=0 || !stillValid(player)) return false;
+        if (button == CLEAN_FURNACE_BUTTON) return station.cleanFurnace();
         if(button==0) station.start(); else if(button==1) station.pump(); else return false;
         return true;
     }
