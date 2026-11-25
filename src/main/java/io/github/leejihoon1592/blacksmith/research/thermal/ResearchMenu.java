@@ -42,7 +42,7 @@ public final class ResearchMenu extends AbstractContainerMenu {
                 addSlot(new Slot(contents,i,x,y) {
                     public boolean mayPlace(ItemStack stack) {
                         return switch(s) {
-                            case 0 -> (station==null || !station.running()) && net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath().endsWith("_raw_fragment");
+                            case 0 -> (station==null || !station.running()) && ResearchData.canResearchSample(stack);
                             case 1 -> stack.getBurnTime(net.minecraft.world.item.crafting.RecipeType.SMELTING)>0;
                             case 2 -> stack.is(Items.PAPER);
                             case 3 -> stack.is(ResearchRegistry.PEN.get());

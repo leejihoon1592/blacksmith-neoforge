@@ -70,14 +70,30 @@ public final class ResearchData extends SimpleJsonResourceReloadListener {
         return new ThermalExperiment.Component(m.id(), m.point(), (int)Math.round(m.seconds()*20), amount, quantity);
     }
 
-    public static List<ThermalExperiment.Component> sample(ItemStack stack) {
+    public static boolean canResearchSample(ItemStack stack) {
+        return sampleMetalId(stack) != null;
+    }
+
+    private static String sampleMetalId(ItemStack stack) {
         ResourceLocation key = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        if (key == null || !key.getNamespace().equals("blacksmith")) return List.of();
+        if (!key.getNamespace().equals(BlacksmithMod.MODID)) return null;
         String name = key.getPath();
-        if (!name.endsWith("_raw_fragment")) return List.of();
-        String metal = name.substring(0, name.length() - "_raw_fragment".length());
-        String host = RawFragmentItem.researchHost(stack);
-        return samples.getOrDefault(metal + "/" + host, List.of());
+        if (name.endsWith("_raw_fragment")) {
+            return name.substring(0, name.length() - "_raw_fragment".length());
+        }
+        if (!name.startsWith("raw_")) return null;
+        String metal = name.substring("raw_".length());
+        return isMetal(metal) ? metal : null;
+    }
+
+    public static List<ThermalExperiment.Component> sample(ItemStack stack) {
+        String metal = sampleMetalId(stack);
+        if (metal == null) return List.of();
+        if (stack.getItem() instanceof RawFragmentItem) {
+            return samples.getOrDefault(metal + "/" + RawFragmentItem.researchHost(stack), List.of());
+        }
+        Material material = materials.get(metal);
+        return material == null ? List.of() : List.of(component(material, 4, "many"));
     }
     public static boolean isMetal(String material) {
         return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("blacksmith", material + "_ingot"))
