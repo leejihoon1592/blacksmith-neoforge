@@ -3,7 +3,9 @@ package io.github.leejihoon1592.blacksmith.smelting;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -64,11 +66,12 @@ public final class SmeltingFurnaceBlock extends HorizontalDirectionalBlock imple
                 furnace.returnInputs(player);
             } else {
                 Component problem = structureProblem(state, level, pos);
-                player.displayClientMessage(problem == null
-                        ? Component.translatable("smelting.blacksmith.assembled")
-                                .append(" ").append(level.getBlockEntity(pos) instanceof SmeltingFurnaceEntity furnace
-                                        ? furnace.status() : Component.empty())
-                        : problem, true);
+                if (problem != null) {
+                    player.displayClientMessage(problem, true);
+                } else if (level.getBlockEntity(pos) instanceof SmeltingFurnaceEntity furnace) {
+                    player.openMenu(new SimpleMenuProvider((id, inventory, viewer) ->
+                            new SmeltingScreenMenu(id, inventory, furnace), getName()));
+                }
             }
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
@@ -84,7 +87,10 @@ public final class SmeltingFurnaceBlock extends HorizontalDirectionalBlock imple
                                               Player player, InteractionHand hand, BlockHitResult hit) {
         boolean ore = SmeltingFurnaceEntity.isSmeltingInput(stack);
         boolean fuel = SmeltingFuel.burnTime(stack) > 0;
-        if (!ore && !fuel) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        if (stack.isEmpty()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        if ((!ore && !fuel) || (stack.getItem() instanceof BlockItem && structureProblem(state, level, pos) != null)) {
+            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+        }
         if (!level.isClientSide) {
             Component problem = structureProblem(state, level, pos);
             if (problem != null) {

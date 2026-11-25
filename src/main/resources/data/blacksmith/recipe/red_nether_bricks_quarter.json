@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:red_nether_bricks"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:red_nether_bricks_quarter",
+    "count": 4
+  }
+}

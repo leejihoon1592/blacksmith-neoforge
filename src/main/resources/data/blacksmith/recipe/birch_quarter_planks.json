@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:birch_planks"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:birch_quarter_planks",
+    "count": 4
+  }
+}

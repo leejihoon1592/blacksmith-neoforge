@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:waxed_cut_copper"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:waxed_cut_copper_quarter",
+    "count": 4
+  }
+}

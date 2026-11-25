@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "QQ",
+    "Q "
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:polished_andesite_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:polished_andesite_vertical_stairs",
+    "count": 1
+  }
+}

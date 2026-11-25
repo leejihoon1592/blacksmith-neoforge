@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:purpur_block_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:purpur_block_vertical_slab"
+  }
+}

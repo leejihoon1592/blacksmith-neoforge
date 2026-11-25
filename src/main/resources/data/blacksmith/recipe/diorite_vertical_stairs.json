@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "QQ",
+    "Q "
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:diorite_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:diorite_vertical_stairs",
+    "count": 1
+  }
+}

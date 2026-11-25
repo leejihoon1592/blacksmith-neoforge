@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:tuff_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:tuff_vertical_slab"
+  }
+}

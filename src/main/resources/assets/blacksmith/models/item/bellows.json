@@ -1,1 +1,3 @@
-{"parent":"minecraft:block/spruce_planks"}
+{
+  "parent": "blacksmith:block/bellows"
+}

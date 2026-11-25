@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:exposed_cut_copper_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:exposed_cut_copper_vertical_slab"
+  }
+}

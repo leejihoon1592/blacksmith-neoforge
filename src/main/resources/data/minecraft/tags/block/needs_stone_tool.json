@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "blacksmith:cut_copper_quarter",
+    "blacksmith:cut_copper_vertical_stairs",
+    "blacksmith:exposed_cut_copper_quarter",
+    "blacksmith:exposed_cut_copper_vertical_stairs",
+    "blacksmith:oxidized_cut_copper_quarter",
+    "blacksmith:oxidized_cut_copper_vertical_stairs",
+    "blacksmith:waxed_cut_copper_quarter",
+    "blacksmith:waxed_cut_copper_vertical_stairs",
+    "blacksmith:waxed_exposed_cut_copper_quarter",
+    "blacksmith:waxed_exposed_cut_copper_vertical_stairs",
+    "blacksmith:waxed_oxidized_cut_copper_quarter",
+    "blacksmith:waxed_oxidized_cut_copper_vertical_stairs",
+    "blacksmith:waxed_weathered_cut_copper_quarter",
+    "blacksmith:waxed_weathered_cut_copper_vertical_stairs",
+    "blacksmith:weathered_cut_copper_quarter",
+    "blacksmith:weathered_cut_copper_vertical_stairs",
+    "blacksmith:cut_copper_vertical_slab",
+    "blacksmith:exposed_cut_copper_vertical_slab",
+    "blacksmith:oxidized_cut_copper_vertical_slab",
+    "blacksmith:waxed_cut_copper_vertical_slab",
+    "blacksmith:waxed_exposed_cut_copper_vertical_slab",
+    "blacksmith:waxed_oxidized_cut_copper_vertical_slab",
+    "blacksmith:waxed_weathered_cut_copper_vertical_slab",
+    "blacksmith:weathered_cut_copper_vertical_slab"
+  ]
+}

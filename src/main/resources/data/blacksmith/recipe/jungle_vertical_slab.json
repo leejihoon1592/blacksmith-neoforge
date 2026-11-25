@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:jungle_quarter_planks"
+    }
+  },
+  "result": {
+    "id": "blacksmith:jungle_vertical_slab"
+  }
+}

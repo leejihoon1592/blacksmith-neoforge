@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:deepslate_tiles_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:deepslate_tiles_vertical_slab"
+  }
+}

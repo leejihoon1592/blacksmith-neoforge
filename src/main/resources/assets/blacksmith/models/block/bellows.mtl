@@ -1,0 +1,39 @@
+newmtl material_0
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_1
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_2
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_3
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_4
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_5
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_6
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_7
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_8
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette
+
+newmtl material_9
+Kd 1 1 1
+map_Kd blacksmith:block/bellows_palette

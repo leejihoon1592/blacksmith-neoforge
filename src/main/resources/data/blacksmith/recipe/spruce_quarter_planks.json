@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:spruce_planks"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:spruce_quarter_planks",
+    "count": 4
+  }
+}

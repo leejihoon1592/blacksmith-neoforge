@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "neoforge:obj",
+  "model": "blacksmith:models/block/ingot_cast.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "emissive_ambient": false,
+  "textures": {
+    "particle": "minecraft:block/terracotta"
+  }
+}

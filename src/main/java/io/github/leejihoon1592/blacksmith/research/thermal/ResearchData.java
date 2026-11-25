@@ -104,6 +104,38 @@ public final class ResearchData extends SimpleJsonResourceReloadListener {
     public static List<String> ids() { return List.copyOf(materials.keySet()); }
     private static final String ENTRIES = "ResearchEntries";
 
+    static int unlockAll(ItemStack book) {
+        var data = book.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        var entries = data.getCompound(ENTRIES);
+        for (Material material : materials.values()) {
+            String id = material.id();
+            var entry = entries.getCompound(id);
+            putExact(entry, "point", material.point());
+            putExact(entry, "seconds", material.seconds());
+            var item = BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(BlacksmithMod.MODID, id + "_ingot"));
+            if (item instanceof MetalIngotItem ingot) {
+                var stats = ingot.baseStats();
+                int weight = MaterialPhysics.weight(stats);
+                putExact(entry, "hardness", stats.hardness());
+                putExact(entry, "elasticity", stats.elasticity());
+                putExact(entry, "polish", stats.polish());
+                putExact(entry, "durability", stats.durability());
+                putExact(entry, "conductivity", stats.conductivity());
+                putExact(entry, "weight", weight);
+                putExact(entry, "difficulty", MaterialPhysics.difficulty(stats, weight));
+            }
+            entries.put(id, entry);
+        }
+        data.put(ENTRIES, entries);
+        book.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        return materials.size();
+    }
+
+    private static void putExact(net.minecraft.nbt.CompoundTag entry, String property, double value) {
+        entry.putDouble(property, value);
+        entry.putInt(property + "Grade", 2);
+    }
+
     public static boolean isMechanicalProperty(String property) {
         return property.equals("hardness") || property.equals("elasticity") || property.equals("polish");
     }

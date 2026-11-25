@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "QQ",
+    "Q "
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:blackstone_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:blackstone_vertical_stairs",
+    "count": 1
+  }
+}

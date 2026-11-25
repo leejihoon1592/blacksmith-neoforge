@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:sandstone_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:sandstone_vertical_slab"
+  }
+}

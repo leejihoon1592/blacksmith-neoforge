@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "QQ",
+    "Q "
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:acacia_quarter_planks"
+    }
+  },
+  "result": {
+    "id": "blacksmith:acacia_vertical_stairs",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:end_stone_bricks_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:end_stone_bricks_vertical_slab"
+  }
+}

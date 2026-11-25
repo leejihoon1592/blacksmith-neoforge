@@ -4,7 +4,6 @@ import io.github.leejihoon1592.blacksmith.BlacksmithMod;
 import io.github.leejihoon1592.blacksmith.research.thermal.ResearchData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +19,7 @@ final class SmeltingFurnaceEntity extends BlockEntity {
 
     private static final int HEAT_PER_PUMP = 20;
     private static final int HEAT_PER_TICK = 10;
-    private static final int COOL_PER_TICK = 2;
+    private static final int TICKS_PER_DEGREE_OF_COOLING = 5;
     private int temperature;
     private int burnTicks;
     private SmeltingFuel burningFuel = SmeltingFuel.restore("");
@@ -50,13 +49,12 @@ final class SmeltingFurnaceEntity extends BlockEntity {
         if (burning) {
             furnace.burnTicks--;
         }
-        if (assembled && burning) {
-            int baseLimit = furnace.burningFuel.baseLimit();
-            if (furnace.temperature <= baseLimit) {
-                furnace.temperature = Math.min(baseLimit, furnace.temperature + HEAT_PER_TICK);
-            }
-        } else {
-            furnace.temperature = Math.max(0, furnace.temperature - COOL_PER_TICK);
+        int targetTemperature = assembled && burning ? furnace.burningFuel.baseLimit() : 0;
+        if (furnace.temperature < targetTemperature) {
+            furnace.temperature = Math.min(targetTemperature, furnace.temperature + HEAT_PER_TICK);
+        } else if (furnace.temperature > targetTemperature
+                && level.getGameTime() % TICKS_PER_DEGREE_OF_COOLING == 0) {
+            furnace.temperature = furnace.temperature - 1;
         }
         if (assembled && canMelt && furnace.temperature >= material.point()
                 && furnace.meltTicks < targetTicks) {
@@ -97,11 +95,35 @@ final class SmeltingFurnaceEntity extends BlockEntity {
         setChanged();
     }
 
-    Component status() {
+    int progressPercent() {
         var material = material(ore);
-        int progress = material == null ? 0 : Math.min(100, (int) (100L * meltTicks / duration(material)));
-        return Component.translatable("smelting.blacksmith.status", temperature, progress,
-                MetalVolume.format(moltenVolume), MetalVolume.format(MetalVolume.BLOCK));
+        return material == null ? 0 : Math.min(100, (int) (100L * meltTicks / duration(material)));
+    }
+
+    int temperature() { return temperature; }
+    int burnTicks() { return burnTicks; }
+    int moltenVolume() { return moltenVolume; }
+    ItemStack input(int slot) { return slot == 0 ? ore : fuel; }
+
+    void setInput(int slot, ItemStack stack) {
+        if (slot == 0) {
+            if (!ItemStack.matches(ore, stack)) meltTicks = 0;
+            ore = stack;
+        } else {
+            fuel = stack;
+        }
+        setChanged();
+    }
+
+    static boolean acceptsInput(int slot, ItemStack stack) {
+        return slot == 0 ? isSmeltingInput(stack) && material(stack) != null
+                : SmeltingFuel.burnTime(stack) > 0;
+    }
+
+    boolean canView(Player player) {
+        return level != null && !isRemoved() && level == player.level()
+                && player.distanceToSqr(worldPosition.getCenter()) <= 64
+                && SmeltingFurnaceBlock.structureProblem(getBlockState(), level, worldPosition) == null;
     }
 
     static boolean isRawOre(ItemStack stack) {
@@ -138,12 +160,10 @@ final class SmeltingFurnaceEntity extends BlockEntity {
     }
 
     boolean insert(Player player, ItemStack stack, boolean asFuel) {
-        if (!(asFuel ? fuel : ore).isEmpty() || (!asFuel && material(stack) == null)) return false;
-        ItemStack input = stack.copyWithCount(1);
-        if (asFuel) fuel = input;
-        else ore = input;
+        int slot = asFuel ? 1 : 0;
+        if (!input(slot).isEmpty() || !acceptsInput(slot, stack)) return false;
+        setInput(slot, stack.copyWithCount(1));
         if (!player.getAbilities().instabuild) stack.shrink(1);
-        setChanged();
         return true;
     }
 

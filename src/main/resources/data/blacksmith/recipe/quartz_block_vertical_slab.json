@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:quartz_block_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:quartz_block_vertical_slab"
+  }
+}

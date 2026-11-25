@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:polished_diorite"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:polished_diorite_quarter",
+    "count": 4
+  }
+}

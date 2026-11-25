@@ -1,0 +1,434 @@
+mtllib ingot_cast.mtl
+o ingot_cast
+vt 0.125000 .75
+vt 0.375000 .75
+vt 0.625000 .75
+vt 0.875000 .75
+v 0.065560 0.000000 0.762064
+v 0.050748 0.000000 0.748284
+v 0.949252 0.000000 0.748284
+v 0.934440 0.000000 0.762064
+v 0.934440 0.000000 0.237936
+v 0.949252 0.000000 0.251716
+v 0.050748 0.000000 0.251716
+v 0.065560 0.000000 0.237936
+v 0.045000 0.021074 0.750200
+v 0.056224 0.034318 0.765184
+v 0.048177 0.046249 0.746473
+v 0.955000 0.021074 0.750200
+v 0.951823 0.046249 0.746473
+v 0.943776 0.034318 0.765184
+v 0.943776 0.034318 0.234816
+v 0.951823 0.046249 0.253527
+v 0.955000 0.021074 0.249800
+v 0.045000 0.021074 0.249800
+v 0.048177 0.046249 0.253527
+v 0.056224 0.034318 0.234816
+v 0.137553 0.203336 0.689597
+v 0.151862 0.202360 0.704341
+v 0.157386 0.215267 0.685319
+v 0.862447 0.203336 0.689597
+v 0.842614 0.215267 0.685319
+v 0.848138 0.202360 0.704341
+v 0.848138 0.202360 0.295659
+v 0.842614 0.215267 0.314681
+v 0.862447 0.203336 0.310403
+v 0.137553 0.203336 0.310403
+v 0.157386 0.215267 0.314681
+v 0.151862 0.202360 0.295659
+v 0.225208 0.202177 0.626898
+v 0.210872 0.202177 0.612562
+v 0.193694 0.215267 0.645380
+v 0.774792 0.202177 0.626898
+v 0.806306 0.215267 0.645380
+v 0.789128 0.202177 0.612562
+v 0.789128 0.202177 0.387438
+v 0.806306 0.215267 0.354620
+v 0.774792 0.202177 0.373102
+v 0.225208 0.202177 0.373102
+v 0.193694 0.215267 0.354620
+v 0.210872 0.202177 0.387438
+v 0.244176 0.096714 0.579258
+v 0.258512 0.096714 0.593594
+v 0.741488 0.096714 0.593594
+v 0.755824 0.096714 0.579258
+v 0.755824 0.096714 0.420742
+v 0.741488 0.096714 0.406406
+v 0.258512 0.096714 0.406406
+v 0.244176 0.096714 0.420742
+usemtl material_3
+f 9/4 10/4 11/4
+usemtl material_3
+f 12/4 13/4 14/4
+usemtl material_3
+f 15/4 16/4 17/4
+usemtl material_3
+f 18/4 19/4 20/4
+usemtl material_3
+f 21/4 22/4 23/4
+usemtl material_3
+f 24/4 25/4 26/4
+usemtl material_3
+f 27/4 28/4 29/4
+usemtl material_3
+f 30/4 31/4 32/4
+usemtl material_3
+f 33/4 34/4 35/4
+usemtl material_3
+f 36/4 37/4 38/4
+usemtl material_3
+f 39/4 40/4 41/4
+usemtl material_3
+f 42/4 43/4 44/4
+usemtl material_3
+f 1/4 10/4 9/4
+usemtl material_3
+f 1/4 9/4 2/4
+usemtl material_3
+f 3/4 12/4 14/4
+usemtl material_3
+f 3/4 14/4 4/4
+usemtl material_3
+f 5/4 15/4 17/4
+usemtl material_3
+f 5/4 17/4 6/4
+usemtl material_3
+f 12/4 17/4 16/4
+usemtl material_3
+f 12/4 16/4 13/4
+usemtl material_3
+f 7/4 18/4 20/4
+usemtl material_3
+f 7/4 20/4 8/4
+usemtl material_3
+f 11/4 19/4 18/4
+usemtl material_3
+f 11/4 18/4 9/4
+usemtl material_3
+f 10/4 22/4 21/4
+usemtl material_3
+f 10/4 21/4 11/4
+usemtl material_3
+f 13/4 24/4 26/4
+usemtl material_3
+f 13/4 26/4 14/4
+usemtl material_3
+f 22/4 26/4 25/4
+usemtl material_3
+f 22/4 25/4 23/4
+usemtl material_3
+f 15/4 27/4 29/4
+usemtl material_3
+f 15/4 29/4 16/4
+usemtl material_3
+f 24/4 29/4 28/4
+usemtl material_3
+f 24/4 28/4 25/4
+usemtl material_3
+f 19/4 30/4 32/4
+usemtl material_3
+f 19/4 32/4 20/4
+usemtl material_3
+f 27/4 32/4 31/4
+usemtl material_3
+f 27/4 31/4 28/4
+usemtl material_3
+f 23/4 31/4 30/4
+usemtl material_3
+f 23/4 30/4 21/4
+usemtl material_3
+f 35/4 37/4 36/4
+usemtl material_3
+f 35/4 36/4 33/4
+usemtl material_3
+f 37/4 40/4 39/4
+usemtl material_3
+f 37/4 39/4 38/4
+usemtl material_3
+f 40/4 43/4 42/4
+usemtl material_3
+f 40/4 42/4 41/4
+usemtl material_3
+f 34/4 44/4 43/4
+usemtl material_3
+f 34/4 43/4 35/4
+usemtl material_3
+f 33/4 46/4 45/4
+usemtl material_3
+f 33/4 45/4 34/4
+usemtl material_3
+f 38/4 48/4 47/4
+usemtl material_3
+f 38/4 47/4 36/4
+usemtl material_3
+f 41/4 50/4 49/4
+usemtl material_3
+f 41/4 49/4 39/4
+usemtl material_3
+f 44/4 52/4 51/4
+usemtl material_3
+f 44/4 51/4 42/4
+usemtl material_3
+f 7/4 2/4 9/4
+usemtl material_3
+f 7/4 9/4 18/4
+usemtl material_3
+f 1/4 4/4 14/4
+usemtl material_3
+f 1/4 14/4 10/4
+usemtl material_3
+f 3/4 6/4 17/4
+usemtl material_3
+f 3/4 17/4 12/4
+usemtl material_3
+f 5/4 8/4 20/4
+usemtl material_3
+f 5/4 20/4 15/4
+usemtl material_3
+f 19/4 11/4 21/4
+usemtl material_3
+f 19/4 21/4 30/4
+usemtl material_3
+f 10/4 14/4 26/4
+usemtl material_3
+f 10/4 26/4 22/4
+usemtl material_3
+f 13/4 16/4 29/4
+usemtl material_3
+f 13/4 29/4 24/4
+usemtl material_3
+f 15/4 20/4 32/4
+usemtl material_3
+f 15/4 32/4 27/4
+usemtl material_3
+f 31/4 23/4 35/4
+usemtl material_3
+f 31/4 35/4 43/4
+usemtl material_3
+f 23/4 25/4 37/4
+usemtl material_3
+f 23/4 37/4 35/4
+usemtl material_3
+f 25/4 28/4 40/4
+usemtl material_3
+f 25/4 40/4 37/4
+usemtl material_3
+f 28/4 31/4 43/4
+usemtl material_3
+f 28/4 43/4 40/4
+usemtl material_3
+f 44/4 34/4 45/4
+usemtl material_3
+f 44/4 45/4 52/4
+usemtl material_3
+f 33/4 36/4 47/4
+usemtl material_3
+f 33/4 47/4 46/4
+usemtl material_3
+f 38/4 39/4 49/4
+usemtl material_3
+f 38/4 49/4 48/4
+usemtl material_3
+f 41/4 42/4 51/4
+usemtl material_3
+f 41/4 51/4 50/4
+v 0.238560 0.087355 0.599210
+v 0.761440 0.087355 0.599210
+v 0.761440 0.087355 0.400790
+v 0.238560 0.087355 0.400790
+v 0.238560 0.098586 0.599210
+v 0.761440 0.098586 0.599210
+v 0.761440 0.098586 0.400790
+v 0.238560 0.098586 0.400790
+usemtl material_1
+f 53/2 54/2 58/2
+usemtl material_1
+f 53/2 58/2 57/2
+usemtl material_1
+f 54/2 55/2 59/2
+usemtl material_1
+f 54/2 59/2 58/2
+usemtl material_1
+f 55/2 56/2 60/2
+usemtl material_1
+f 55/2 60/2 59/2
+usemtl material_1
+f 56/2 53/2 57/2
+usemtl material_1
+f 56/2 57/2 60/2
+usemtl material_1
+f 56/2 55/2 54/2
+usemtl material_1
+f 56/2 54/2 53/2
+usemtl material_1
+f 57/2 58/2 59/2
+usemtl material_1
+f 57/2 59/2 60/2
+v 0.151849 0.214019 0.696548
+v 0.146838 0.214019 0.691862
+v 0.853162 0.214019 0.691862
+v 0.848151 0.214019 0.696548
+v 0.848151 0.214019 0.303452
+v 0.853162 0.214019 0.308138
+v 0.146838 0.214019 0.308138
+v 0.151849 0.214019 0.303452
+v 0.156826 0.220678 0.682825
+v 0.161621 0.220534 0.687707
+v 0.163420 0.222754 0.680717
+v 0.843174 0.220678 0.682825
+v 0.836580 0.222754 0.680717
+v 0.838379 0.220534 0.687707
+v 0.838379 0.220534 0.312293
+v 0.836580 0.222754 0.319283
+v 0.843174 0.220678 0.317175
+v 0.156826 0.220678 0.317175
+v 0.163420 0.222754 0.319283
+v 0.161621 0.220534 0.312293
+v 0.209246 0.219355 0.633207
+v 0.205187 0.219355 0.629148
+v 0.200139 0.222754 0.638751
+v 0.790754 0.219355 0.633207
+v 0.799861 0.222754 0.638751
+v 0.794813 0.219355 0.629148
+v 0.794813 0.219355 0.370852
+v 0.799861 0.222754 0.361249
+v 0.790754 0.219355 0.366793
+v 0.209246 0.219355 0.366793
+v 0.200139 0.222754 0.361249
+v 0.205187 0.219355 0.370852
+v 0.207362 0.214643 0.626973
+v 0.211421 0.214643 0.631032
+v 0.788579 0.214643 0.631032
+v 0.792638 0.214643 0.626973
+v 0.792638 0.214643 0.373027
+v 0.788579 0.214643 0.368968
+v 0.211421 0.214643 0.368968
+v 0.207362 0.214643 0.373027
+usemtl material_0
+f 69/1 70/1 71/1
+usemtl material_0
+f 72/1 73/1 74/1
+usemtl material_0
+f 75/1 76/1 77/1
+usemtl material_0
+f 78/1 79/1 80/1
+usemtl material_0
+f 81/1 82/1 83/1
+usemtl material_0
+f 84/1 85/1 86/1
+usemtl material_0
+f 87/1 88/1 89/1
+usemtl material_0
+f 90/1 91/1 92/1
+usemtl material_0
+f 61/1 70/1 69/1
+usemtl material_0
+f 61/1 69/1 62/1
+usemtl material_0
+f 63/1 72/1 74/1
+usemtl material_0
+f 63/1 74/1 64/1
+usemtl material_0
+f 70/1 74/1 73/1
+usemtl material_0
+f 70/1 73/1 71/1
+usemtl material_0
+f 65/1 75/1 77/1
+usemtl material_0
+f 65/1 77/1 66/1
+usemtl material_0
+f 72/1 77/1 76/1
+usemtl material_0
+f 72/1 76/1 73/1
+usemtl material_0
+f 67/1 78/1 80/1
+usemtl material_0
+f 67/1 80/1 68/1
+usemtl material_0
+f 75/1 80/1 79/1
+usemtl material_0
+f 75/1 79/1 76/1
+usemtl material_0
+f 71/1 79/1 78/1
+usemtl material_0
+f 71/1 78/1 69/1
+usemtl material_0
+f 83/1 85/1 84/1
+usemtl material_0
+f 83/1 84/1 81/1
+usemtl material_0
+f 85/1 88/1 87/1
+usemtl material_0
+f 85/1 87/1 86/1
+usemtl material_0
+f 88/1 91/1 90/1
+usemtl material_0
+f 88/1 90/1 89/1
+usemtl material_0
+f 82/1 92/1 91/1
+usemtl material_0
+f 82/1 91/1 83/1
+usemtl material_0
+f 81/1 94/1 93/1
+usemtl material_0
+f 81/1 93/1 82/1
+usemtl material_0
+f 86/1 96/1 95/1
+usemtl material_0
+f 86/1 95/1 84/1
+usemtl material_0
+f 89/1 98/1 97/1
+usemtl material_0
+f 89/1 97/1 87/1
+usemtl material_0
+f 92/1 100/1 99/1
+usemtl material_0
+f 92/1 99/1 90/1
+usemtl material_0
+f 67/1 62/1 69/1
+usemtl material_0
+f 67/1 69/1 78/1
+usemtl material_0
+f 61/1 64/1 74/1
+usemtl material_0
+f 61/1 74/1 70/1
+usemtl material_0
+f 63/1 66/1 77/1
+usemtl material_0
+f 63/1 77/1 72/1
+usemtl material_0
+f 65/1 68/1 80/1
+usemtl material_0
+f 65/1 80/1 75/1
+usemtl material_0
+f 79/1 71/1 83/1
+usemtl material_0
+f 79/1 83/1 91/1
+usemtl material_0
+f 71/1 73/1 85/1
+usemtl material_0
+f 71/1 85/1 83/1
+usemtl material_0
+f 73/1 76/1 88/1
+usemtl material_0
+f 73/1 88/1 85/1
+usemtl material_0
+f 76/1 79/1 91/1
+usemtl material_0
+f 76/1 91/1 88/1
+usemtl material_0
+f 92/1 82/1 93/1
+usemtl material_0
+f 92/1 93/1 100/1
+usemtl material_0
+f 81/1 84/1 95/1
+usemtl material_0
+f 81/1 95/1 94/1
+usemtl material_0
+f 86/1 87/1 97/1
+usemtl material_0
+f 86/1 97/1 96/1
+usemtl material_0
+f 89/1 90/1 99/1
+usemtl material_0
+f 89/1 99/1 98/1

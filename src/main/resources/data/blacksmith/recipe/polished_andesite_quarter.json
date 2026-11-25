@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:polished_andesite"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:polished_andesite_quarter",
+    "count": 4
+  }
+}

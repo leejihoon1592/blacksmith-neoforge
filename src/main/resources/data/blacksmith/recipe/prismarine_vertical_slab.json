@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:prismarine_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:prismarine_vertical_slab"
+  }
+}

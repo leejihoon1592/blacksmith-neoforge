@@ -1,0 +1,6 @@
+{
+  "parent": "blacksmith:block/building/vertical_slab",
+  "textures": {
+    "planks": "minecraft:block/bamboo_planks"
+  }
+}

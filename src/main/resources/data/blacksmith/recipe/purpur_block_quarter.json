@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:purpur_block"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:purpur_block_quarter",
+    "count": 4
+  }
+}

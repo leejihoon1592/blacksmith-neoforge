@@ -1,1 +1,19 @@
-{"variants":{"":{"model":"minecraft:block/spruce_planks"}}}
+{
+  "variants": {
+    "facing=north": {
+      "model": "blacksmith:block/bellows"
+    },
+    "facing=east": {
+      "model": "blacksmith:block/bellows",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "blacksmith:block/bellows",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "blacksmith:block/bellows",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "blacksmith:block/building/quarter",
+  "textures": {
+    "planks": "minecraft:block/jungle_planks"
+  }
+}

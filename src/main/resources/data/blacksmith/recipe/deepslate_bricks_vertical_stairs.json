@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "QQ",
+    "Q "
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:deepslate_bricks_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:deepslate_bricks_vertical_stairs",
+    "count": 1
+  }
+}

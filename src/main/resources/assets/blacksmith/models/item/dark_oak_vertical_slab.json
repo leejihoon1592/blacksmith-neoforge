@@ -1,0 +1,6 @@
+{
+  "parent": "blacksmith:block/building/vertical_slab",
+  "textures": {
+    "planks": "minecraft:block/dark_oak_planks"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:spruce_quarter_planks"
+    }
+  },
+  "result": {
+    "id": "blacksmith:spruce_vertical_slab"
+  }
+}

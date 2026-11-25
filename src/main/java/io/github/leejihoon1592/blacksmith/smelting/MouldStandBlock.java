@@ -20,18 +20,23 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 final class MouldStandBlock extends Block implements EntityBlock {
     private static final MapCodec<MouldStandBlock> CODEC = simpleCodec(MouldStandBlock::new);
     private static final IntegerProperty MOULD = IntegerProperty.create("mould", 0, 2);
     private static final BooleanProperty PORTABLE = BooleanProperty.create("portable");
     private static final BooleanProperty OPEN = BooleanProperty.create("open");
+    private static final VoxelShape INGOT_CAST_SHAPE = Block.box(0.72, 0, 3.76, 15.28, 3.56, 12.24);
 
     MouldStandBlock(Properties properties) {
         super(properties);
@@ -54,14 +59,20 @@ final class MouldStandBlock extends Block implements EntityBlock {
     }
 
     @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return state.getValue(MOULD) == 1 ? INGOT_CAST_SHAPE : Shapes.block();
+    }
+
+    @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                               Player player, InteractionHand hand, BlockHitResult hit) {
         int mould = stack.is(SmeltingBlocks.INGOT_CAST.get()) ? 1 : stack.is(SmeltingBlocks.BLOCK_CAST.get()) ? 2 : 0;
         if (stack.isEmpty()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         if (mould == 0 || state.getValue(MOULD) != 0) return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof MouldStandEntity stand) {
-            stand.loadCast(stack, capacity(state.setValue(MOULD, mould)));
-            level.setBlockAndUpdate(pos, state.setValue(MOULD, mould).setValue(OPEN, false));
+            BlockState installed = state.setValue(MOULD, mould).setValue(OPEN, false);
+            level.setBlockAndUpdate(pos, installed);
+            stand.loadCast(stack, capacity(installed));
             stack.shrink(1);
         }
         return ItemInteractionResult.sidedSuccess(level.isClientSide);
@@ -159,13 +170,17 @@ final class MouldStandBlock extends Block implements EntityBlock {
         return state.getValue(PORTABLE);
     }
 
+    static BlockState withVisibleContents(BlockState state, boolean filled) {
+        return state.setValue(OPEN, filled);
+    }
+
     static BlockState placedMould(int mould) {
         return SmeltingBlocks.INGOT_MOULD.get().defaultBlockState().setValue(PORTABLE, true).setValue(MOULD, mould);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide || !isPortable(state) || type != SmeltingBlocks.MOULD_STAND_ENTITY.get()) return null;
+        if (!isPortable(state) || type != SmeltingBlocks.MOULD_STAND_ENTITY.get()) return null;
         return (world, pos, currentState, entity) -> ((MouldStandEntity) entity).cool();
     }
 

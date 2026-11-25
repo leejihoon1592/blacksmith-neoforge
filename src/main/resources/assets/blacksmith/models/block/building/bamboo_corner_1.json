@@ -1,0 +1,6 @@
+{
+  "parent": "blacksmith:block/building/corner_1",
+  "textures": {
+    "planks": "minecraft:block/bamboo_planks"
+  }
+}

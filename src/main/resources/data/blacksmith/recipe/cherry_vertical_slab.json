@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:cherry_quarter_planks"
+    }
+  },
+  "result": {
+    "id": "blacksmith:cherry_vertical_slab"
+  }
+}

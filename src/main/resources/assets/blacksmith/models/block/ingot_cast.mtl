@@ -1,0 +1,15 @@
+newmtl material_0
+Kd 1 1 1
+map_Kd blacksmith:block/ingot_cast_palette
+
+newmtl material_1
+Kd 1 1 1
+map_Kd blacksmith:block/ingot_cast_palette
+
+newmtl material_2
+Kd 1 1 1
+map_Kd blacksmith:block/ingot_cast_palette
+
+newmtl material_3
+Kd 1 1 1
+map_Kd blacksmith:block/ingot_cast_palette

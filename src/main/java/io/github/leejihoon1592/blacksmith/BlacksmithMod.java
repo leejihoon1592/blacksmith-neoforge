@@ -67,6 +67,7 @@ public class BlacksmithMod
         MiningToolPredicate.TYPES.register(modEventBus);
 
         MetalIngots.registerCreativeTab();
+        io.github.leejihoon1592.blacksmith.building.WoodBuildingBlocks.register();
         ResearchRegistry.register(modEventBus);
         io.github.leejihoon1592.blacksmith.smelting.SmeltingBlocks.register(modEventBus);
 

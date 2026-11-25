@@ -1,0 +1,36 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "corners": "3|5"
+      },
+      "apply": {
+        "model": "blacksmith:block/building/acacia_corner_0"
+      }
+    },
+    {
+      "when": {
+        "corners": "3|10"
+      },
+      "apply": {
+        "model": "blacksmith:block/building/acacia_corner_1"
+      }
+    },
+    {
+      "when": {
+        "corners": "5|12"
+      },
+      "apply": {
+        "model": "blacksmith:block/building/acacia_corner_2"
+      }
+    },
+    {
+      "when": {
+        "corners": "10|12"
+      },
+      "apply": {
+        "model": "blacksmith:block/building/acacia_corner_3"
+      }
+    }
+  ]
+}

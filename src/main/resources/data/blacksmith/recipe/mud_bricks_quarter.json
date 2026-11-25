@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:mud_bricks"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:mud_bricks_quarter",
+    "count": 4
+  }
+}

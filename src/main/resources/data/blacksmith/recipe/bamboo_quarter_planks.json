@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:bamboo_planks"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:bamboo_quarter_planks",
+    "count": 4
+  }
+}

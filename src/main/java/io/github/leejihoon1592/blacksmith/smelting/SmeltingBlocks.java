@@ -6,6 +6,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
@@ -14,12 +16,18 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public final class SmeltingBlocks {
+    private static final DeferredRegister<MenuType<?>> MENUS =
+            DeferredRegister.create(Registries.MENU, BlacksmithMod.MODID);
+    static final DeferredHolder<MenuType<?>, MenuType<SmeltingScreenMenu>> FURNACE_MENU =
+            MENUS.register("smelting_furnace",
+                    () -> new MenuType<>(SmeltingScreenMenu::new, FeatureFlags.DEFAULT_FLAGS));
+
     static final DeferredHolder<Block, Block> SMELTING_FURNACE = BlacksmithMod.BLOCKS.register("smelting_furnace", () -> new SmeltingFurnaceBlock(properties()));
     static final DeferredHolder<Block, Block> ORE_INLET = part("ore_inlet");
     static final DeferredHolder<Block, Block> TAPPING_SPOUT = part("tapping_spout");
-    static final DeferredHolder<Block, Block> INGOT_MOULD = BlacksmithMod.BLOCKS.register("ingot_mould", () -> new MouldStandBlock(properties()));
+    static final DeferredHolder<Block, Block> INGOT_MOULD = BlacksmithMod.BLOCKS.register("ingot_mould", () -> new MouldStandBlock(properties().noOcclusion()));
     static final DeferredHolder<Block, Block> BELLOWS_INLET = part("bellows_inlet");
-    static final DeferredHolder<Block, Block> BELLOWS = BlacksmithMod.BLOCKS.register("bellows", () -> new BellowsBlock(properties()));
+    static final DeferredHolder<Block, Block> BELLOWS = BlacksmithMod.BLOCKS.register("bellows", () -> new BellowsBlock(properties().noOcclusion()));
 
     static final DeferredHolder<Item, Item> SOLIDIFIED_METAL =
             BlacksmithMod.ITEMS.register("solidified_metal", () -> new SolidifiedMetalItem(new Item.Properties()));
@@ -49,6 +57,7 @@ public final class SmeltingBlocks {
     private SmeltingBlocks() {}
 
     public static void register(IEventBus bus) {
+        MENUS.register(bus);
         ENTITIES.register(bus);
         RECIPE_SERIALIZERS.register(bus);
         item("smelting_furnace", SMELTING_FURNACE);

@@ -4,10 +4,10 @@
       "model": "minecraft:block/smooth_stone"
     },
     "mould=1,open=false": {
-      "model": "minecraft:block/terracotta"
+      "model": "blacksmith:block/ingot_cast"
     },
     "mould=1,open=true": {
-      "model": "minecraft:block/orange_terracotta"
+      "model": "blacksmith:block/ingot_cast"
     },
     "mould=2,open=false": {
       "model": "minecraft:block/bricks"

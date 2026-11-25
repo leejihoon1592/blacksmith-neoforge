@@ -1,0 +1,6 @@
+{
+  "parent": "blacksmith:block/building/vertical_stair",
+  "textures": {
+    "planks": "minecraft:block/crimson_planks"
+  }
+}

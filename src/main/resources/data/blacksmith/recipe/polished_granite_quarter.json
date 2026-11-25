@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:polished_granite"
+    }
+  ],
+  "result": {
+    "id": "blacksmith:polished_granite_quarter",
+    "count": 4
+  }
+}

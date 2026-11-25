@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "QQ",
+    "Q "
+  ],
+  "key": {
+    "Q": {
+      "item": "blacksmith:prismarine_quarter"
+    }
+  },
+  "result": {
+    "id": "blacksmith:prismarine_vertical_stairs",
+    "count": 1
+  }
+}
